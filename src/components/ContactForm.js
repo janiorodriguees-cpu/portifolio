@@ -7,7 +7,7 @@ import { site } from '@/data/site';
 // enviada para um serviço de formulários (Formspree): o endereço fica em
 // `site.form` (src/data/site.js). Sem ele, o envio avisa para copiar o e-mail.
 
-const TOPICS = ['Vaga (CLT ou PJ)', 'Projeto freelance', 'Consultoria', 'Só conversar'];
+const TOPICS = ['Vaga CLT', 'Projeto freelance', 'Consultoria', 'Só conversar'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function ContactForm() {

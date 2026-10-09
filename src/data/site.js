@@ -2,6 +2,8 @@
 export const site = {
   name: 'Janio Rodrigues',
   role: 'UX e Product Designer',
+  // aparece no rodapé, com um ponto pulsando; troque quando a situação mudar
+  status: 'Disponível para vagas remotas',
   // TROCAR: e-mail de contato (hoje é só um exemplo)
   email: 'seu-email@dominio.com',
   // TROCAR: endereço do seu perfil no LinkedIn

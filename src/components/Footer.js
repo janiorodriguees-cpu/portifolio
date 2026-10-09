@@ -1,11 +1,14 @@
 import TLink from './TLink';
 import ContactButtons from './ContactButtons';
+import BackToTop from './BackToTop';
 import { site } from '@/data/site';
 
 export default function Footer() {
   return (
     <footer className="foot" id="contato">
-      <p className="foot__big">Vamos conversar.</p>
+      <p className="foot__big">
+        Vamos conversar<span className="hl">.</span>
+      </p>
       <div className="foot__cta">
         <ContactButtons />
         <TLink href="/contato/" className="foot__form">
@@ -13,14 +16,14 @@ export default function Footer() {
         </TLink>
       </div>
       <div className="foot__row">
-        <p className="foot__links">
-          <a href={site.cv} target="_blank" rel="noopener noreferrer">
-            Currículo
-          </a>
-          <TLink href="/sobre/">Sobre mim</TLink>
-          <TLink href="/contato/">Contato</TLink>
+        <p className="foot__status">
+          <span className="foot__dot" aria-hidden="true" />
+          {site.status}
         </p>
-        <p>© {new Date().getFullYear()} {site.name}</p>
+        <p>
+          © {new Date().getFullYear()} {site.name}
+        </p>
+        <BackToTop />
       </div>
     </footer>
   );

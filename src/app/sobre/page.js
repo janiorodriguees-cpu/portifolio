@@ -12,7 +12,7 @@ export default function Sobre() {
       <Intro />
       <div className="page">
         <p className="page__lead">
-          Mais de 10 anos transformando problemas complexos em produtos que as pessoas entendem e usam.
+          Mais de <em className="hl">10 anos</em> transformando problemas complexos em produtos que as pessoas entendem e usam.
         </p>
 
         <Section title="Trajetória">

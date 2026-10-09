@@ -32,7 +32,9 @@ export default function Intro() {
       <div className="intro__txt">
         <h1 className="intro__title" id="intro-titulo">
           <Line>Prazer, eu sou</Line>
-          <Line>o Janio.</Line>
+          <Line>
+            o Janio<span className="hl">.</span>
+          </Line>
         </h1>
         <p className="intro__sum" data-fade>
           Há mais de 10 anos desenho produtos digitais para bancos, saúde e varejo, da pesquisa ao protótipo testado

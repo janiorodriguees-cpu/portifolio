@@ -44,7 +44,7 @@ export default function Reel({ cases }) {
           </p>
           <div className="hello">
             {[...'Olá.'].map((ch, i) => (
-              <Line key={i}>{ch}</Line>
+              <Line key={i}>{ch === '.' ? <span className="hl">.</span> : ch}</Line>
             ))}
           </div>
         </div>
@@ -57,7 +57,8 @@ export default function Reel({ cases }) {
           <div className="num">
             <span className="mask">
               <span data-in>
-                <span data-count="10">10</span>+
+                <span data-count="10">10</span>
+                <span className="hl">+</span>
               </span>
             </span>
             <i className="mask">

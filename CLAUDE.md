@@ -20,7 +20,7 @@ Next.js 15 (App Router) com `output: 'export'`, React 19, MDX para cases (`@next
 - A barra do reel mostra só a cena atual ("02 / 05 · Experiência"); nada de frases longas que cortam.
 - Transição de página: cortina da cor do case sobe → troca de rota → sai pelo topo. Respeitar `prefers-reduced-motion`.
 - Não use `transform` em CSS para pré-esconder elementos animados pelo GSAP (o GSAP lê como px). Use `opacity`/`clip-path`.
-- Cores: papel `#ebebe9`, tinta `#0e0e11`; cada case tem sua cor (`color`/`on` em `cases.js`).
+- Cores: papel `#ebebe9`, tinta `#0e0e11`; cada case tem sua cor (`color`/`on` em `cases.js`). Vermelho de destaque `#ff0004` (`--accent`, classe `.hl`): só em títulos grandes (pontuação, "+", palavras-chave) e no hover dos botões de contato; nunca em texto pequeno nem sobre a cor de um case.
 - Fontes: títulos em Times New Roman (com Tinos, de mesmas medidas, onde ela não existe); textos em Inter. Ambas via pacotes `@fontsource` importados no `layout.js`.
 - Tipografia: use só os tokens de `:root` em `globals.css` (`--fs-xl` 96→190, `--fs-l` 72→148, `--fs-m` 44→86, `--fs-lead` 22→26, `--fs-text` 16→19; celular 390 → 1440) e o espaçamento entre letras `--tr-*`. XL só para "Olá." e "10+"; L para nomes e títulos; M para frases de destaque. Não crie tamanhos avulsos.
 - Transições de página: para cases a cortina sobe (cor do case); para o Sobre ela atravessa na horizontal (`direction` em `curtain.js`, escolhida no `Shell`).

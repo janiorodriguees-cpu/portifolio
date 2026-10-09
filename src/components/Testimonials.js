@@ -34,7 +34,11 @@ export default function Testimonials() {
         {testimonials.map((t, i) => (
           <figure className="quote" data-quote key={i} aria-roledescription="depoimento">
             <blockquote className="quote__text">
-              <p>“{t.quote}”</p>
+              <p>
+                <span className="hl">“</span>
+                {t.quote}
+                <span className="hl">”</span>
+              </p>
             </blockquote>
             <figcaption className="quote__who">
               <span className="quote__avatar" aria-hidden="true">

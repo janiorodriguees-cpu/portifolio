@@ -12,6 +12,10 @@
   --c2: #d92d20;
   --c3: #0e3a31;
   --on: #f6f4ee;
+  /* vermelho de destaque: só em títulos grandes (pontuação, "+", palavras-chave) e no
+     hover dos botões de contato. Nunca em texto pequeno nem sobre a cor de um case. */
+  --accent: #ff0004;
+  --on-accent: #ffffff;
   --serif: "Times New Roman", Tinos, Times, serif;
   --sans: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: clamp(20px, 4vw, 56px); /* margem lateral */
@@ -831,15 +835,57 @@ a:hover > .arrow,
   border-top: 1px solid color-mix(in srgb, var(--paper) 25%, transparent);
   font-size: 0.95rem;
 }
-.foot__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
+.foot__row {
+  align-items: center;
+}
+/* disponibilidade: ponto vermelho pulsando */
+.foot__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 500;
 }
-.foot a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.foot__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.foot__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s ease-out infinite;
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+.foot__top {
+  display: inline-flex;
+  gap: 0.5em;
+  font-weight: 500;
+}
+.foot__top:hover .arrow {
+  transform: translateY(-4px);
+}
+.foot__form:hover {
+  color: var(--accent);
+}
+
+/* destaque em vermelho dentro de títulos grandes */
+.hl {
+  color: var(--accent);
+  font-style: inherit;
 }
 
 /* ========================================================= BOTÕES DE CONTATO
@@ -876,13 +922,12 @@ a:hover > .arrow,
   background: transparent;
   color: var(--b);
 }
-.cbtn--in:hover {
-  background: var(--b);
-  color: var(--f);
-}
-.cbtn--mail:hover,
-.cbtn--mail.is-copied {
-  background: color-mix(in srgb, var(--b) 82%, var(--f));
+/* hover: vermelho de destaque, tanto no papel claro quanto no rodapé escuro */
+.cbtn:hover,
+.cbtn.is-copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
 }
 /* ícone e avatar dividem o mesmo lugar */
 .cbtn__icon,
@@ -899,8 +944,8 @@ a:hover > .arrow,
   position: absolute;
   left: 10px;
   overflow: hidden;
-  background: var(--f);
-  color: var(--b);
+  background: var(--on-accent);
+  color: var(--accent);
   font-size: 0.8rem;
   font-weight: 700;
   opacity: 0;
@@ -962,7 +1007,7 @@ a:hover > .arrow,
   top: 120px;
 }
 .contact__title {
-  font: 400 var(--fs-l) / 0.92 var(--serif);
+  font: 400 var(--fs-m) / 0.95 var(--serif);
   letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }

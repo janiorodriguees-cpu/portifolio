@@ -16,7 +16,9 @@ export default function Contato() {
             <span data-in>Vamos</span>
           </span>
           <span className="mask">
-            <span data-in>conversar.</span>
+            <span data-in>
+              conversar<span className="hl">.</span>
+            </span>
           </span>
         </h1>
         <p className="contact__lead" data-fade>
