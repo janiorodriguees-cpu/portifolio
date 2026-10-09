@@ -40,7 +40,9 @@ export default function Header() {
         <TLink href="/sobre/" aria-current={pathname === '/sobre' ? 'page' : undefined}>
           Sobre
         </TLink>
-        <a href={`mailto:${site.email}`}>Contato</a>
+        <TLink href="/contato/" aria-current={pathname === '/contato' ? 'page' : undefined}>
+          Contato
+        </TLink>
       </nav>
     </header>
   );

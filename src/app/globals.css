@@ -807,11 +807,19 @@ a:hover > .arrow,
   letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }
-.foot__mail {
-  display: inline-block;
-  margin-top: var(--s4);
-  font: 400 var(--fs-lead) / 1.2 var(--serif);
+.foot__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3) var(--s4);
+  margin-top: var(--s5);
+}
+.foot__form {
+  display: inline-flex;
+  gap: 0.5em;
+  padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
+  font-weight: 500;
 }
 .foot__row {
   display: flex;
@@ -832,6 +840,261 @@ a:hover > .arrow,
 .foot a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+/* ========================================================= BOTÕES DE CONTATO
+   (referência: robin-noguier.com) — e-mail copia; no hover o texto troca e o
+   avatar entra no lugar do ícone. Cores invertem sobre fundo escuro (rodapé). */
+.cbtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.cbtn {
+  --b: var(--ink);
+  --f: var(--paper);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  padding: 0 24px 0 10px;
+  border: 1px solid var(--b);
+  border-radius: 999px;
+  background: var(--b);
+  color: var(--f);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 0.35s var(--ease), color 0.35s var(--ease);
+}
+.foot .cbtn {
+  --b: var(--paper);
+  --f: var(--ink);
+}
+.cbtn--in {
+  background: transparent;
+  color: var(--b);
+}
+.cbtn--in:hover {
+  background: var(--b);
+  color: var(--f);
+}
+.cbtn--mail:hover,
+.cbtn--mail.is-copied {
+  background: color-mix(in srgb, var(--b) 82%, var(--f));
+}
+/* ícone e avatar dividem o mesmo lugar */
+.cbtn__icon,
+.cbtn__avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 50%;
+  transition: transform 0.45s var(--ease), opacity 0.3s;
+}
+.cbtn__avatar {
+  position: absolute;
+  left: 10px;
+  overflow: hidden;
+  background: var(--f);
+  color: var(--b);
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateX(-14px) scale(0.6);
+}
+.cbtn__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cbtn--mail:hover .cbtn__avatar,
+.cbtn--mail.is-copied .cbtn__avatar {
+  opacity: 1;
+  transform: none;
+}
+.cbtn--mail:hover .cbtn__icon,
+.cbtn--mail.is-copied .cbtn__icon {
+  opacity: 0;
+  transform: scale(0.6);
+}
+/* texto: duas linhas empilhadas na mesma célula; a de baixo sobe no hover */
+.cbtn__swap {
+  display: grid;
+  overflow: hidden;
+}
+.cbtn__a,
+.cbtn__b {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  text-align: center;
+  transition: transform 0.45s var(--ease);
+}
+.cbtn__b {
+  transform: translateY(110%);
+}
+.cbtn:hover .cbtn__a,
+.cbtn.is-copied .cbtn__a {
+  transform: translateY(-110%);
+}
+.cbtn:hover .cbtn__b,
+.cbtn.is-copied .cbtn__b {
+  transform: none;
+}
+
+/* =============================================================== CONTATO */
+.contact {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  row-gap: var(--s6);
+  align-items: start;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(120px, 18vh, 180px) var(--gutter) var(--s7);
+}
+.contact__intro {
+  grid-column: 1 / span 5;
+  position: sticky;
+  top: 120px;
+}
+.contact__title {
+  font: 400 var(--fs-l) / 0.92 var(--serif);
+  letter-spacing: var(--tr-l);
+  margin-left: -0.03em;
+}
+.contact__lead {
+  max-width: 30ch;
+  margin: var(--s4) 0 var(--s5);
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+}
+.contact__note {
+  max-width: 34ch;
+  margin-top: var(--s3);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.contact__form {
+  grid-column: 7 / span 6;
+  padding: var(--s5);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--ink) 5%, var(--paper));
+}
+.js .contact [data-in],
+.js .contact [data-fade] {
+  opacity: 0;
+}
+
+/* formulário: campos só sublinhados, opções em pílulas */
+.cform {
+  display: grid;
+  gap: var(--s4);
+}
+.cform__topics {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.cform__topics legend {
+  padding: 0;
+  font: 400 clamp(26px, 2.4vw, 38px) / 1.1 var(--serif);
+  letter-spacing: var(--tr-lead);
+}
+.cform__hint {
+  margin: var(--s1) 0 var(--s2);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+}
+.chip {
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.chip:hover {
+  border-color: var(--ink);
+}
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field > span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  resize: vertical;
+  transition: border-color 0.25s;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--ink);
+  box-shadow: 0 1px 0 0 var(--ink);
+}
+.field [aria-invalid="true"] {
+  border-bottom-color: #c0362c;
+}
+.field__err,
+.cform__err {
+  color: #c0362c;
+  font-size: 0.875rem;
+  font-style: normal;
+}
+.cform__foot {
+  display: grid;
+  gap: var(--s2);
+  justify-items: start;
+}
+.cform__send {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.cform__send:hover {
+  background: transparent;
+  color: var(--ink);
+}
+.cform__send:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.cform--sent {
+  gap: var(--s2);
+}
+.cform__ok {
+  font: 400 clamp(32px, 3vw, 48px) / 1.05 var(--serif);
+}
+.cform__again {
+  justify-self: start;
+  margin-top: var(--s2);
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-weight: 500;
 }
 
 /* ============================================================ TRANSIÇÃO */
@@ -1152,6 +1415,14 @@ a:hover > .arrow,
   }
 }
 @media (max-width: 800px) {
+  .contact__intro,
+  .contact__form {
+    grid-column: 1 / -1;
+    position: static;
+  }
+  .contact__form {
+    padding: var(--s4) var(--s3);
+  }
   .intro {
     grid-template-columns: 1fr;
     align-content: center;
@@ -1233,6 +1504,8 @@ a:hover > .arrow,
   .panel__media.is-hover .media__fx {
     transform: none;
   }
+  .js .contact [data-in],
+  .js .contact [data-fade],
   .js .intro [data-in],
   .js .intro [data-fade] {
     opacity: 1;

@@ -113,9 +113,9 @@ export default function Reel({ cases }) {
             <TLink href="/#trabalhos" className="btn btn--down" data-fade>
               Ver trabalhos <span className="arrow">↓</span>
             </TLink>
-            <a href={`mailto:${site.email}`} className="btn" data-fade>
+            <TLink href="/contato/" className="btn" data-fade>
               Falar comigo
-            </a>
+            </TLink>
           </div>
         </div>
       </div>

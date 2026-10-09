@@ -96,8 +96,9 @@ export default function Shell({ children }) {
       const to = normalize(url.pathname);
       const from = normalize(window.location.pathname);
       let direction = 'up';
-      if (to === '/sobre') direction = 'left';
-      else if (from === '/sobre' && !to.startsWith('/casos')) direction = 'right';
+      const side = (p) => p === '/sobre' || p === '/contato'; // páginas "pessoais": transição lateral
+      if (side(to)) direction = 'left';
+      else if (side(from) && !to.startsWith('/casos')) direction = 'right';
       const cover =
         direction === 'up'
           ? { ...opts, direction }
@@ -105,7 +106,9 @@ export default function Shell({ children }) {
               color: opts.color,
               on: opts.on,
               // o rótulo diz para onde a pessoa vai: Sobre, Trabalhos (seção da home) ou Início
-              text: opts.text ?? (to === '/sobre' ? 'Sobre' : url.hash === '#trabalhos' ? 'Trabalhos' : 'Início'),
+              text:
+                opts.text ??
+                (to === '/sobre' ? 'Sobre' : to === '/contato' ? 'Contato' : url.hash === '#trabalhos' ? 'Trabalhos' : 'Início'),
               direction,
             };
 

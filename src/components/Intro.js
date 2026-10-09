@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/motion/setup';
 import { initIntro } from '@/motion/intro';
 import { site } from '@/data/site';
+import TLink from './TLink';
 
 const Line = ({ children }) => (
   <span className="mask">
@@ -38,7 +39,7 @@ export default function Intro() {
           com quem usa.
         </p>
         <p className="intro__links" data-fade>
-          <a href={`mailto:${site.email}`}>E-mail</a>
+          <TLink href="/contato/">Contato</TLink>
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
