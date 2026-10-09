@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from '@/motion/setup';
 import { createReel } from '@/motion/reel';
 import TLink from './TLink';
+import CaseName from './CaseName';
 import { site } from '@/data/site';
 
 // Na ordem do processo, do problema ao teste.
@@ -57,12 +58,13 @@ export default function Reel({ cases }) {
           <div className="num">
             <span className="mask">
               <span data-in>
-                <span data-count="10">10</span>
-                <span className="hl">+</span>
+                <span data-count="10">10</span>+
               </span>
             </span>
             <i className="mask">
-              <span data-in>anos</span>
+              <span data-in className="hl">
+                anos
+              </span>
             </i>
           </div>
           <p className="lead2">
@@ -88,9 +90,11 @@ export default function Reel({ cases }) {
         {/* 4 · cases, um painel colorido por vez */}
         <div className="scene scene--cases" data-scene aria-hidden="true">
           {cases.map((c) => (
-            <div className="sub" data-sub key={c.slug} style={{ '--c': c.color, '--on': c.on }}>
+            <div className="sub" data-sub key={c.slug} style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}>
               <p className="sub__t">
-                <Line>{c.title}</Line>
+                <Line>
+                  <CaseName title={c.title} />
+                </Line>
               </p>
               <p className="sub__d">
                 <Line>

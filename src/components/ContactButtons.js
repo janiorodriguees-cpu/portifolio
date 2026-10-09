@@ -80,6 +80,28 @@ export function EmailButton() {
   );
 }
 
+// Versão em texto (links da abertura do Sobre): "E-mail" que copia o endereço.
+export function CopyEmailLink() {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef(0);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const onClick = async () => {
+    if (await copy(site.email)) {
+      setCopied(true);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 2200);
+    }
+  };
+  return (
+    <button type="button" className={copied ? 'is-copied' : undefined} onClick={onClick} title={site.email}>
+      {copied ? 'E-mail copiado ✓' : 'E-mail'}
+      <span className="sr-only" aria-live="polite">
+        {copied ? `E-mail ${site.email} copiado` : ''}
+      </span>
+    </button>
+  );
+}
+
 export function LinkedInButton() {
   return (
     <a className="cbtn cbtn--in" href={site.linkedin} target="_blank" rel="noopener noreferrer">

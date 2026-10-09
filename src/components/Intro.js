@@ -5,6 +5,7 @@ import { gsap, ScrollTrigger } from '@/motion/setup';
 import { initIntro } from '@/motion/intro';
 import { site } from '@/data/site';
 import TLink from './TLink';
+import { CopyEmailLink } from './ContactButtons';
 
 const Line = ({ children }) => (
   <span className="mask">
@@ -45,9 +46,7 @@ export default function Intro() {
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
-          <a href={site.cv} target="_blank" rel="noopener noreferrer">
-            Currículo
-          </a>
+          <CopyEmailLink />
         </p>
       </div>
     </section>

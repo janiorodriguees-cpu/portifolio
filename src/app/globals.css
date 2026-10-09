@@ -14,7 +14,7 @@
   --on: #f6f4ee;
   /* vermelho de destaque: só em títulos grandes (pontuação, "+", palavras-chave) e no
      hover dos botões de contato. Nunca em texto pequeno nem sobre a cor de um case. */
-  --accent: #ff0004;
+  --accent: #dd0a0d;
   --on-accent: #ffffff;
   --serif: "Times New Roman", Tinos, Times, serif;
   --sans: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -24,12 +24,12 @@
   /* Escala tipográfica (celular 390 → 1440). Só estes tamanhos para textos de destaque.
      XL: 96 → 190 · "Olá." e "10+"
      L:  72 → 148 · nomes e títulos (Case N, Janio Rodrigues, título do case, rodapé)
-     M:  44 → 86  · frases de destaque (Sobre)
+     M:  40 → 68  · frases de destaque (Sobre, Contato)
      Lead: 22 → 26 · frases de apoio · Texto: 16 → 19 · corpo, resumos, botões
      Espaçamento entre letras: quanto maior o texto, mais fechado (Times pede pouco). */
   --fs-xl: clamp(96px, 13.2vw, 220px);
   --fs-l: clamp(72px, 10.3vw, 168px);
-  --fs-m: clamp(44px, 6vw, 96px);
+  --fs-m: clamp(40px, 4.7vw, 76px);
   --fs-lead: clamp(22px, 1.8vw, 28px);
   --tr-xl: -0.03em;
   --tr-l: -0.025em;
@@ -691,9 +691,17 @@ a:hover > .arrow,
   margin-top: min(var(--s4), 3svh);
   font-weight: 500;
 }
-.intro__links a {
+.intro__links a,
+.intro__links button {
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.intro__links a:hover,
+.intro__links button:hover,
+.intro__links .is-copied {
+  color: var(--accent);
 }
 /* a abertura do Sobre anima na entrada; o GSAP revela (só opacity/clip-path aqui) */
 .js .intro [data-in],
@@ -886,6 +894,10 @@ a:hover > .arrow,
 .hl {
   color: var(--accent);
   font-style: inherit;
+}
+/* número do case na cor de destaque do próprio case (--hl, definida em cases.js) */
+.case-n {
+  color: var(--hl, inherit);
 }
 
 /* ========================================================= BOTÕES DE CONTATO

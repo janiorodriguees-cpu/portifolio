@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from '@/motion/setup';
 import { swapIn, swapOut } from '@/motion/next-cases';
 import TLink from './TLink';
+import CaseName from './CaseName';
 
 // Fim da página de case: mostra o próximo case. O título abre o case; a seta só
 // troca qual case aparece aqui (Case 2 → Case 3 → …), sem sair da página.
@@ -37,7 +38,7 @@ export default function NextCases({ others }) {
   return (
     <section
       className="next"
-      style={{ '--c': c.color, '--on': c.on }}
+      style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}
       aria-label="Outros cases"
     >
       <TLink
@@ -51,7 +52,9 @@ export default function NextCases({ others }) {
         <span className="next__k">{index === 0 ? 'Próximo case' : 'Outro case'}</span>
         <span className="next__t">
           <span className="mask">
-            <span ref={title}>{c.title}</span>
+            <span ref={title}>
+              <CaseName title={c.title} />
+            </span>
           </span>
         </span>
         <span className="next__label">{c.label}</span>

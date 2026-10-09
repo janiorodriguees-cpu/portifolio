@@ -1,6 +1,7 @@
 // Lista dos cases. Hoje são três exemplos ("Case 1, 2 e 3") só para ver o layout e
 // as transições. Para cada case real:
-//   1. ajuste os dados abaixo (título, cor, resumo, ficha);
+//   1. ajuste os dados abaixo (título, cor, resumo, ficha). `hl` é a cor da última
+//      palavra do título; teste o contraste com `color` (mínimo 3:1 para texto grande);
 //   2. escreva o texto em src/content/cases/<slug>.mdx;
 //   3. coloque as imagens em public/cases/<slug>/.
 export const cases = [
@@ -14,6 +15,7 @@ export const cases = [
     year: 'Ano',
     color: '#2f3cff',
     on: '#f6f4ee',
+    hl: '#c8ff5a', // número do case: verde-limão sobre o azul (contraste 5,6)
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',
@@ -30,6 +32,7 @@ export const cases = [
     year: 'Ano',
     color: '#d92d20',
     on: '#f6f4ee',
+    hl: '#ffe3a3', // amarelo-claro sobre o vermelho (contraste 3,9)
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',
@@ -46,6 +49,7 @@ export const cases = [
     year: 'Ano',
     color: '#0e3a31',
     on: '#f1ece1',
+    hl: '#f2c14e', // dourado sobre o verde (contraste 7,5)
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',

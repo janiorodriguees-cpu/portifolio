@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/motion/setup';
 import { initSeries } from '@/motion/series';
 import TLink from './TLink';
+import CaseName from './CaseName';
 
 const Line = ({ children }) => (
   <span className="mask">
@@ -28,7 +29,7 @@ export default function Series({ cases }) {
           Trabalhos selecionados
         </h2>
         {cases.map((c) => (
-          <article className="panel" data-panel key={c.slug} style={{ '--c': c.color, '--on': c.on }}>
+          <article className="panel" data-panel key={c.slug} style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}>
             <div className="panel__txt">
               <p className="panel__meta">
                 {c.sector} · {c.year}
@@ -42,7 +43,9 @@ export default function Series({ cases }) {
                   data-cursor="Ver case"
                   aria-label={`${c.title}: ${c.label}`}
                 >
-                  <Line>{c.title}</Line>
+                  <Line>
+                    <CaseName title={c.title} />
+                  </Line>
                 </TLink>
               </h3>
               <p className="panel__sum">{c.summary}</p>

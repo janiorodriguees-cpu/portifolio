@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { cases, getCase, otherCases } from '@/data/cases';
 import CaseEnter from '@/components/CaseEnter';
 import NextCases from '@/components/NextCases';
+import CaseName from '@/components/CaseName';
 import Footer from '@/components/Footer';
 
 export const dynamicParams = false;
@@ -27,13 +28,15 @@ export default async function CasePage({ params }) {
   return (
     <article>
       <CaseEnter />
-      <header className="case-hero" style={{ '--c': c.color, '--on': c.on }}>
+      <header className="case-hero" style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}>
         <p className="case-hero__meta" data-case-fade>
           {c.sector} · {c.year}
         </p>
         <h1 className="case-hero__title">
           <span className="mask">
-            <span data-case-in>{c.title}</span>
+            <span data-case-in>
+              <CaseName title={c.title} />
+            </span>
           </span>
         </h1>
         <p className="case-hero__lead" data-case-fade>
