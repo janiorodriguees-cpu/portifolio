@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
-import { cases, getCase, nextCase } from '@/data/cases';
+import { cases, getCase, otherCases } from '@/data/cases';
 import CaseEnter from '@/components/CaseEnter';
-import TLink from '@/components/TLink';
+import NextCases from '@/components/NextCases';
 import Footer from '@/components/Footer';
 
 export const dynamicParams = false;
@@ -20,7 +20,7 @@ export default async function CasePage({ params }) {
   const { slug } = await params;
   const c = getCase(slug);
   if (!c) notFound();
-  const next = nextCase(slug);
+  const others = otherCases(slug);
   // Cada case é um arquivo em src/content/cases/<slug>.mdx
   const { default: Body } = await import(`@/content/cases/${slug}.mdx`);
 
@@ -63,23 +63,7 @@ export default async function CasePage({ params }) {
         <Body />
       </div>
 
-      <TLink
-        href={`/casos/${next.slug}/`}
-        color={next.color}
-        on={next.on}
-        text={next.title}
-        className="next"
-        data-cursor="Próximo"
-        style={{ '--c': next.color, '--on': next.on }}
-      >
-        <span className="next__txt">
-          <span className="next__k">Próximo case</span>
-          <span className="next__t">{next.title}</span>
-        </span>
-        <span className="next__arrow" aria-hidden="true">
-          <span>→</span>
-        </span>
-      </TLink>
+      <NextCases others={others} />
       <Footer />
     </article>
   );

@@ -6,15 +6,17 @@ import { createReel } from '@/motion/reel';
 import TLink from './TLink';
 import { site } from '@/data/site';
 
+// Na ordem do processo, do problema ao teste.
 const SKILLS = [
-  'Pesquisa com usuários',
-  'Facilitação de workshops',
-  'UX e UI de produtos',
-  'Protótipos',
+  'Conhecendo o problema',
+  'Entrevistas com usuários',
+  'Dinâmicas',
+  'Mapeamentos',
+  'Fluxos e jornadas',
+  'Wireframe e protótipo',
   'Testes de usabilidade',
-  'IA no processo',
 ];
-const SEGMENTS = ['Olá', 'Experiência', 'O que eu faço', 'Trabalhos', 'Contato'];
+const SEGMENTS = ['Olá', 'Experiência', 'Meu dia a dia', 'Trabalhos', 'Contato'];
 
 const Line = ({ children }) => (
   <span className="mask">
@@ -71,7 +73,7 @@ export default function Reel({ cases }) {
         {/* 3 · o que eu faço */}
         <div className="scene" data-scene data-bg="light" aria-hidden="true">
           <p className="kicker">
-            <Line>No dia a dia eu faço</Line>
+            <Line>Um resumo do meu dia a dia</Line>
           </p>
           <ul className="skills">
             {SKILLS.map((s) => (

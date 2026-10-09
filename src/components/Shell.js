@@ -29,6 +29,11 @@ export default function Shell({ children }) {
     // Abertura: no carregamento (ou ao atualizar) a cortina cobre a tela com o nome e
     // abre quando as fontes estão prontas. Só então header, reel e entradas começam.
     window.__shell = true; // o JavaScript carregou: a trava de segurança do layout não precisa agir
+    // F5 na home: começa do topo, como se a página estivesse sendo aberta agora
+    if (window.__reloadTop) {
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+    }
     const loading = document.documentElement.classList.contains('is-loading');
     if (loading) gsap.set(curtainEl.current, { clipPath: 'inset(0% 0% 0% 0%)', visibility: 'visible' });
     let alive = true;
@@ -96,7 +101,13 @@ export default function Shell({ children }) {
       const cover =
         direction === 'up'
           ? { ...opts, direction }
-          : { color: opts.color, on: opts.on, text: opts.text ?? (to === '/sobre' ? 'Sobre' : 'Início'), direction };
+          : {
+              color: opts.color,
+              on: opts.on,
+              // o rótulo diz para onde a pessoa vai: Sobre, Trabalhos (seção da home) ou Início
+              text: opts.text ?? (to === '/sobre' ? 'Sobre' : url.hash === '#trabalhos' ? 'Trabalhos' : 'Início'),
+              direction,
+            };
 
       busy.current = true;
       curtain.current.cover(cover).then(() => {

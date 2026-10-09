@@ -24,7 +24,7 @@ const BUTTON = { wait: 'Pausar', playing: 'Pausar', paused: 'Retomar', done: 'Re
 // Quando cada cena começa na linha do tempo (segundos).
 const STARTS = [0, 3.2, 6.8, 11.6, 16.0];
 // Em que ponto de cada cena o conteúdo já está todo visível (para pular de cena).
-const SHOW_AT = [2.6, 2.9, 4.3, 4.35, 2.4];
+const SHOW_AT = [2.6, 2.9, 4.75, 4.35, 2.4];
 const WIPE = 0.9; // duração da cortina que troca de cena
 const CONTENT_DELAY = 0.45; // o texto entra depois que a cortina já subiu um pouco
 const MOVE_THRESHOLD = 60; // px de movimento do mouse para contar como interação

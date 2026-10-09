@@ -188,15 +188,11 @@ img, svg {
   font: 400 1.65rem / 1 var(--serif);
   letter-spacing: var(--tr-lead);
 }
-.hdr__left {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-}
+/* "← Voltar" no lugar do nome, nas páginas internas */
 .back {
   display: inline-flex;
   align-items: center;
-  gap: 0.45em;
+  gap: 0.5em;
   padding: 6px 0;
   font-size: 0.95rem;
   font-weight: 500;
@@ -355,7 +351,7 @@ a:hover > .arrow,
 }
 /* cena 3 */
 .skills li {
-  font: 400 clamp(26px, min(5.2vw, 6.6svh), 80px) / 1.06 var(--serif); /* limitada pela altura: 6 linhas sempre cabem abaixo do header */
+  font: 400 clamp(24px, min(5vw, 6svh), 76px) / 1.06 var(--serif); /* limitada pela altura: as 7 linhas sempre cabem abaixo do header */
   letter-spacing: var(--tr-m);
 }
 .skills li:nth-child(even) {
@@ -1022,6 +1018,7 @@ a:hover > .arrow,
   color: var(--muted);
   font-size: 0.875rem;
 }
+/* fim do case: o título abre o case; a seta só troca qual case aparece aqui */
 .next {
   position: relative;
   display: grid;
@@ -1030,30 +1027,47 @@ a:hover > .arrow,
   gap: var(--s4);
   padding: clamp(80px, 14vh, 160px) var(--gutter) clamp(60px, 10vh, 120px);
   min-height: 70vh;
-  background: var(--c);
+  background-color: var(--c);
   color: var(--on);
   overflow: hidden;
+  transition: background-color 0.7s var(--ease), color 0.7s var(--ease);
 }
-.next__txt {
+.next__link {
   display: block;
+  justify-self: start;
 }
-.next__k {
+.next__k,
+.next__label {
   display: block;
   font-size: var(--fs-text);
   font-weight: 500;
 }
 .next__t {
   display: block;
-  margin: var(--s2) 0 0 -0.03em;
+  margin: var(--s2) 0 var(--s2) -0.03em;
   font: 400 var(--fs-l) / 0.9 var(--serif);
   letter-spacing: var(--tr-l);
+}
+.next__label {
+  font-weight: 400;
+  opacity: 0.8;
+}
+.next__ctrl {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s2);
+}
+.next__count {
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 .next__arrow {
   display: grid;
   place-items: center;
   width: clamp(64px, 7vw, 112px);
   aspect-ratio: 1;
-  margin-bottom: 0.4em;
   border: 1px solid currentColor;
   border-radius: 50%;
   font-size: clamp(24px, 2.4vw, 40px);
@@ -1062,11 +1076,11 @@ a:hover > .arrow,
 .next__arrow span {
   transition: transform 0.4s var(--ease);
 }
-.next:hover .next__arrow {
+.next__arrow:hover {
   background: var(--on);
   color: var(--c);
 }
-.next:hover .next__arrow span {
+.next__arrow:hover span {
   transform: translateX(6px);
 }
 
@@ -1131,11 +1145,6 @@ a:hover > .arrow,
   .brand {
     font-size: 1.3rem;
     white-space: nowrap;
-  }
-  /* nas páginas internas, o "Voltar" ocupa o lugar do nome no celular */
-  .hdr__left .back + .brand,
-  .hdr__left .brand:has(+ .back) {
-    display: none;
   }
   .hdr nav {
     gap: 14px;

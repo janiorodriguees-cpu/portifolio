@@ -56,7 +56,8 @@ export const cases = [
 
 export const getCase = (slug) => cases.find((c) => c.slug === slug);
 
-export const nextCase = (slug) => {
+// Os outros cases, começando pelo próximo da lista (e dando a volta no fim).
+export const otherCases = (slug) => {
   const i = cases.findIndex((c) => c.slug === slug);
-  return cases[(i + 1) % cases.length];
+  return cases.slice(i + 1).concat(cases.slice(0, i));
 };

@@ -15,26 +15,26 @@ export default function Header() {
   useEffect(() => watchHeaderTheme(), []);
   useEffect(() => watchHeaderScroll(el.current), []);
 
-  // Páginas internas ganham um "Voltar" visível (no celular ele ocupa o lugar do nome).
-  // Dos cases volta para a lista de trabalhos; do Sobre, para o início.
+  // Na home, o canto esquerdo é o nome. Nas páginas internas ele vira "← Voltar"
+  // (no mesmo lugar, uma ação só, como em robin-noguier.com): dos cases volta para a
+  // lista de trabalhos; do Sobre, para o início.
   const inCase = pathname.startsWith('/casos/');
   const back = pathname === '/' ? null : inCase ? { href: '/#trabalhos', text: 'Trabalhos' } : { href: '/', text: 'Início' };
 
   return (
     <header className="hdr" ref={el}>
-      <div className="hdr__left">
+      {back ? (
+        <TLink href={back.href} text={back.text} className="back" aria-label={`Voltar para ${back.text.toLowerCase()}`}>
+          <span className="arrow" aria-hidden="true">
+            ←
+          </span>
+          Voltar
+        </TLink>
+      ) : (
         <TLink href="/" className="brand" aria-label={`${site.name}, início`}>
           {site.name}
         </TLink>
-        {back && (
-          <TLink href={back.href} text={back.text} className="back">
-            <span className="arrow" aria-hidden="true">
-              ←
-            </span>{' '}
-            Voltar
-          </TLink>
-        )}
-      </div>
+      )}
       <nav aria-label="Principal">
         <TLink href="/#trabalhos">Trabalhos</TLink>
         <TLink href="/sobre/" aria-current={pathname === '/sobre' ? 'page' : undefined}>

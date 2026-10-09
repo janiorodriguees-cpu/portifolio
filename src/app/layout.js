@@ -17,7 +17,9 @@ export const viewport = { themeColor: '#ebebe9' };
 // Antes da primeira pintura: marca "com JavaScript" (evita piscar o conteúdo animado) e,
 // se a pessoa não pediu menos movimento, liga a cortina de abertura com o nome.
 // Trava de segurança: se o JavaScript do site não carregar, a cortina sai em 6 s.
-const jsFlag = `(function(d){d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){if(d.classList.contains('is-loading')&&!d.classList.contains('is-ready')&&!window.__shell){d.classList.remove('is-loading');d.classList.add('is-ready')}},6000)})(document.documentElement)`;
+// Atualizar a página (F5) recomeça do início: volta para a home, no topo. Abrir um link
+// direto (ex.: um case compartilhado) continua abrindo aquela página.
+const jsFlag = `(function(d){var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];if(n&&n.type==='reload'){if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.pathname!=='/'||location.hash){location.replace('/');return}window.__reloadTop=true;addEventListener('load',function(){scrollTo(0,0)})}d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){if(d.classList.contains('is-loading')&&!d.classList.contains('is-ready')&&!window.__shell){d.classList.remove('is-loading');d.classList.add('is-ready')}},6000)})(document.documentElement)`;
 
 export default function RootLayout({ children }) {
   return (
