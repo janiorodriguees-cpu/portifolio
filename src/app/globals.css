@@ -12,20 +12,25 @@
   --c2: #d92d20;
   --c3: #0e3a31;
   --on: #f6f4ee;
-  --serif: "Instrument Serif", "Times New Roman", serif;
-  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Times New Roman", Tinos, Times, serif;
+  --sans: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: clamp(20px, 4vw, 56px); /* margem lateral */
   --col-gap: clamp(16px, 1.7vw, 24px); /* espaço entre as 12 colunas */
 
   /* Escala tipográfica (celular 390 → 1440). Só estes tamanhos para textos de destaque.
-     XL: 88 → 148 · "Olá." e "10+"
-     L:  68 → 108 · nomes e títulos (Case N, Janio Rodrigues, título do case, rodapé)
-     M:  44 → 68  · frases de destaque (Sobre, apresentação)
-     Lead: 22 → 25 · frases de apoio · Texto: 16 → 19 · corpo, resumos, botões */
-  --fs-xl: clamp(88px, 10.3vw, 160px);
-  --fs-l: clamp(68px, 7.5vw, 116px);
-  --fs-m: clamp(44px, 4.7vw, 72px);
-  --fs-lead: clamp(22px, 1.75vw, 27px);
+     XL: 96 → 190 · "Olá." e "10+"
+     L:  72 → 148 · nomes e títulos (Case N, Janio Rodrigues, título do case, rodapé)
+     M:  44 → 86  · frases de destaque (Sobre)
+     Lead: 22 → 26 · frases de apoio · Texto: 16 → 19 · corpo, resumos, botões
+     Espaçamento entre letras: quanto maior o texto, mais fechado (Times pede pouco). */
+  --fs-xl: clamp(96px, 13.2vw, 220px);
+  --fs-l: clamp(72px, 10.3vw, 168px);
+  --fs-m: clamp(44px, 6vw, 96px);
+  --fs-lead: clamp(22px, 1.8vw, 28px);
+  --tr-xl: -0.03em;
+  --tr-l: -0.025em;
+  --tr-m: -0.02em;
+  --tr-lead: -0.005em;
   --fs-text: clamp(16px, 0.35vw + 14px, 19px);
   --fs-label: clamp(0.95rem, 1.2vw, 1.15rem);
 
@@ -181,7 +186,7 @@ img, svg {
 }
 .brand {
   font: 400 1.65rem / 1 var(--serif);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tr-lead);
 }
 .hdr nav {
   display: flex;
@@ -296,13 +301,13 @@ a:hover > .arrow,
 /* cena 1 */
 .scene__lead {
   font: 400 var(--fs-lead) / 1.1 var(--serif);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tr-lead);
   margin-bottom: var(--s2);
 }
 .hello {
   display: flex;
-  font: 400 var(--fs-xl) / 0.82 var(--serif);
-  letter-spacing: -0.045em;
+  font: 400 var(--fs-xl) / 0.86 var(--serif);
+  letter-spacing: var(--tr-xl);
   margin-left: -0.04em;
 }
 /* cena 2 */
@@ -315,8 +320,8 @@ a:hover > .arrow,
   display: flex;
   align-items: baseline;
   gap: 0.12em;
-  font: 400 var(--fs-xl) / 0.82 var(--serif);
-  letter-spacing: -0.045em;
+  font: 400 var(--fs-xl) / 0.86 var(--serif);
+  letter-spacing: var(--tr-xl);
   margin-left: -0.03em;
 }
 .num i {
@@ -327,12 +332,12 @@ a:hover > .arrow,
   max-width: 20em;
   margin-top: var(--s3);
   font: 400 var(--fs-lead) / 1.1 var(--serif);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tr-lead);
 }
 /* cena 3 */
 .skills li {
-  font: 400 clamp(26px, 4.7vw, 72px) / 1.04 var(--serif); /* no computador = nível M */
-  letter-spacing: -0.03em;
+  font: 400 clamp(26px, min(5.2vw, 6.6svh), 80px) / 1.06 var(--serif); /* limitada pela altura: 6 linhas sempre cabem abaixo do header */
+  letter-spacing: var(--tr-m);
 }
 .skills li:nth-child(even) {
   font-style: italic;
@@ -352,8 +357,8 @@ a:hover > .arrow,
   clip-path: inset(100% 0% 0% 0%);
 }
 .sub__t {
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
   margin: 0 0 var(--s2) -0.03em;
 }
 .sub__d {
@@ -361,14 +366,14 @@ a:hover > .arrow,
 }
 /* cena 5 */
 .final__name {
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }
 .final__role {
   margin-top: var(--s2);
   font: italic 400 var(--fs-lead) / 1.1 var(--serif);
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tr-lead);
 }
 .final__actions {
   display: flex;
@@ -471,8 +476,8 @@ a:hover > .arrow,
 }
 .panel__title {
   margin: var(--s2) 0 var(--s3) -0.03em;
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
 }
 .panel__title a {
   display: block;
@@ -647,7 +652,7 @@ a:hover > .arrow,
 }
 .intro__title {
   font: 400 var(--fs-l) / 0.92 var(--serif);
-  letter-spacing: -0.04em;
+  letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }
 .intro__sum {
@@ -656,13 +661,120 @@ a:hover > .arrow,
   font-size: var(--fs-lead);
   line-height: 1.35;
 }
-.intro__link {
-  display: inline-flex;
-  gap: 0.6em;
+.intro__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
   margin-top: var(--s4);
+  font-weight: 500;
+}
+.intro__links a {
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
+}
+/* a abertura do Sobre anima na entrada; o GSAP revela (só opacity/clip-path aqui) */
+.js .intro [data-in],
+.js .intro [data-fade] {
+  opacity: 0;
+}
+.js .intro__photo {
+  clip-path: inset(100% 0% 0% 0%);
+}
+.intro + .page {
+  padding-top: 0;
+}
+.page__lead {
+  max-width: 14em;
+}
+
+/* depoimentos (Sobre) */
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  row-gap: var(--s5);
+  padding: var(--s7) 0;
+  border-top: 1px solid var(--line);
+}
+.quotes__h {
+  grid-column: 1 / span 4;
+  font: 400 clamp(1.8rem, 3vw, 2.9rem) / 1.04 var(--serif);
+  letter-spacing: var(--tr-lead);
+}
+.quotes__stage {
+  grid-column: 6 / span 7;
+  display: grid;
+}
+.quote {
+  grid-area: 1 / 1; /* todos no mesmo lugar: a altura é a do maior */
+  margin: 0;
+}
+.js .quote:not(:first-child) {
+  opacity: 0;
+  visibility: hidden;
+}
+.quote__text {
+  margin: 0;
+  font: italic 400 var(--fs-lead) / 1.3 var(--serif);
+  font-size: clamp(24px, 2.4vw, 38px);
+  letter-spacing: var(--tr-lead);
+}
+.quote__who {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-top: var(--s4);
+  font-size: 0.95rem;
+}
+.quote__who b {
+  display: block;
+  font-weight: 600;
+}
+.quote__who span span {
+  color: var(--muted);
+}
+.quote__avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.quote__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.quotes__nav {
+  grid-column: 6 / span 7;
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+}
+.quotes__count {
+  margin-right: auto;
+  font-size: 0.95rem;
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.quotes__btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
+}
+.quotes__btn:hover {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 /* rodapé */
@@ -672,8 +784,8 @@ a:hover > .arrow,
   color: var(--paper);
 }
 .foot__big {
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }
 .foot__mail {
@@ -721,7 +833,7 @@ a:hover > .arrow,
   overflow: hidden;
   padding: 0.08em 0.1em;
   font: 400 var(--fs-l) / 0.9 var(--serif);
-  letter-spacing: -0.04em;
+  letter-spacing: var(--tr-l);
 }
 
 .curtain__label > span {
@@ -796,14 +908,14 @@ a:hover > .arrow,
 .case-hero__title {
   grid-column: 1 / -1;
   margin: var(--s2) 0 var(--s5) -0.03em;
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
 }
 .case-hero__lead {
   grid-column: 1 / span 6;
   max-width: 28ch;
   font: 400 var(--fs-lead) / 1.2 var(--serif);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tr-lead);
 }
 .facts {
   grid-column: 8 / span 5;
@@ -836,7 +948,7 @@ a:hover > .arrow,
   position: sticky;
   top: 96px;
   font: 400 clamp(1.8rem, 3vw, 2.9rem) / 1.04 var(--serif);
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tr-lead);
 }
 .csec__b {
   grid-column: 6 / span 7;
@@ -896,8 +1008,8 @@ a:hover > .arrow,
 }
 .next__t {
   margin: var(--s2) 0 0 -0.03em;
-  font: 400 var(--fs-l) / 0.86 var(--serif);
-  letter-spacing: -0.04em;
+  font: 400 var(--fs-l) / 0.9 var(--serif);
+  letter-spacing: var(--tr-l);
 }
 
 /* ================================================================ SOBRE */
@@ -907,7 +1019,7 @@ a:hover > .arrow,
 .page__lead {
   max-width: 15em;
   font: 400 var(--fs-m) / 1 var(--serif);
-  letter-spacing: -0.025em;
+  letter-spacing: var(--tr-m);
 }
 .page .csec {
   margin-top: clamp(60px, 12vh, 130px);
@@ -956,6 +1068,17 @@ a:hover > .arrow,
 }
 
 /* ============================================================ RESPONSIVO */
+/* celular: a Times é mais larga, então nome e links ficam um pouco menores para caber em uma linha */
+@media (max-width: 520px) {
+  .brand {
+    font-size: 1.3rem;
+    white-space: nowrap;
+  }
+  .hdr nav {
+    gap: 14px;
+    font-size: 0.875rem;
+  }
+}
 @media (max-width: 800px) {
   .intro {
     grid-template-columns: 1fr;
@@ -969,6 +1092,11 @@ a:hover > .arrow,
   .intro__photo {
     width: min(78%, 320px);
     max-height: none;
+  }
+  .quotes__h,
+  .quotes__stage,
+  .quotes__nav {
+    grid-column: 1 / -1;
   }
   .panel {
     grid-template-columns: 1fr;
@@ -1025,6 +1153,14 @@ a:hover > .arrow,
   .media__fx,
   .panel__media.is-hover .media__fx {
     transform: none;
+  }
+  .js .intro [data-in],
+  .js .intro [data-fade] {
+    opacity: 1;
+    visibility: visible;
+  }
+  .js .intro__photo {
+    clip-path: none;
   }
   .js .reel [data-in],
   .js .reel [data-fade] {

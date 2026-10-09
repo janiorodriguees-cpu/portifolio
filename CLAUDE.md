@@ -20,7 +20,9 @@ Next.js 15 (App Router) com `output: 'export'`, React 19, MDX para cases (`@next
 - Transição de página: cortina da cor do case sobe → troca de rota → sai pelo topo. Respeitar `prefers-reduced-motion`.
 - Não use `transform` em CSS para pré-esconder elementos animados pelo GSAP (o GSAP lê como px). Use `opacity`/`clip-path`.
 - Cores: papel `#ebebe9`, tinta `#0e0e11`; cada case tem sua cor (`color`/`on` em `cases.js`).
-- Tipografia: use só os tokens de `:root` em `globals.css` (`--fs-xl` 88→148, `--fs-l` 68→108, `--fs-m` 44→68, `--fs-lead` 22→25, `--fs-text` 16→19; celular 390 → 1440). XL só para "Olá." e "10+"; L para nomes e títulos; M para frases de destaque. Não crie tamanhos avulsos.
+- Fontes: títulos em Times New Roman (com Tinos, de mesmas medidas, onde ela não existe); textos em Inter. Ambas via pacotes `@fontsource` importados no `layout.js`.
+- Tipografia: use só os tokens de `:root` em `globals.css` (`--fs-xl` 96→190, `--fs-l` 72→148, `--fs-m` 44→86, `--fs-lead` 22→26, `--fs-text` 16→19; celular 390 → 1440) e o espaçamento entre letras `--tr-*`. XL só para "Olá." e "10+"; L para nomes e títulos; M para frases de destaque. Não crie tamanhos avulsos.
+- Transições de página: para cases a cortina sobe (cor do case); para o Sobre ela atravessa na horizontal (`direction` em `curtain.js`, escolhida no `Shell`).
 - Grid de 12 colunas: margem `--gutter` (56 px no 1440), espaço entre colunas `--col-gap` (24 px), espaçamentos `--s1`…`--s8` (8, 16, 24, 32, 48, 64, 96, 128).
 - Não rode `npm run build` com o `npm run dev` aberto: os dois usam `.next` e o dev quebra.
 
@@ -33,5 +35,6 @@ Contexto e problema · Meu papel e o time · Processo e facilitação · Decisõ
 ## Pendências
 - Trocar e-mail, LinkedIn e URL em `src/data/site.js`; adicionar `public/curriculo.pdf`.
 - Escrever os cases reais (Cielo ARV, Fleury, Bradesco, Alelo, Carrefour, CTC) e a página Sobre.
+- Foto em `public/foto.jpg` (`photo` em `site.js`) e depoimentos reais e autorizados em `src/data/testimonials.js`.
 - Definir domínio (janiorodrigues.com) e hospedagem.
 - Primeira execução: rodar `npm install` e `npm run dev` e corrigir qualquer erro de build.

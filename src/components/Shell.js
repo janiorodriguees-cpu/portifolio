@@ -77,8 +77,19 @@ export default function Shell({ children }) {
         return;
       }
 
+      // cases: cortina sobe; Sobre: cortina atravessa na horizontal (ida pela direita, volta pela esquerda)
+      const to = normalize(url.pathname);
+      const from = normalize(window.location.pathname);
+      let direction = 'up';
+      if (to === '/sobre') direction = 'left';
+      else if (from === '/sobre' && !to.startsWith('/casos')) direction = 'right';
+      const cover =
+        direction === 'up'
+          ? { ...opts, direction }
+          : { color: opts.color, on: opts.on, text: opts.text ?? (to === '/sobre' ? 'Sobre' : 'Início'), direction };
+
       busy.current = true;
-      curtain.current.cover(opts).then(() => {
+      curtain.current.cover(cover).then(() => {
         router.push(href);
         // rede de segurança: se a rota não mudar, não deixa a cortina travada
         clearTimeout(failsafe.current);

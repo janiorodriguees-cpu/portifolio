@@ -1,31 +1,6 @@
-/* Fontes hospedadas no próprio projeto (public/fonts), sem depender do Google em produção. */
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("/fonts/InstrumentSerif-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("/fonts/InstrumentSerif-Italic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/InstrumentSans-Variable.ttf") format("truetype");
-  font-weight: 400 700;
-  font-stretch: 75% 100%;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/InstrumentSans-Italic-Variable.ttf") format("truetype");
-  font-weight: 400 700;
-  font-stretch: 75% 100%;
-  font-style: italic;
-  font-display: swap;
-}
+/* Fontes do site
+   - Títulos: Times New Roman (já vem no Windows e no macOS). Onde ela não existe
+     (Android, Linux), entra a Tinos, que tem exatamente as mesmas medidas.
+   - Textos: Inter (variável, pesos 100–900).
+   Os arquivos da Tinos e da Inter são importados no layout (pacotes @fontsource) e
+   hospedados junto com o site, sem depender do Google em produção. */

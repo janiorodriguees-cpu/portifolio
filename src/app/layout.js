@@ -1,3 +1,6 @@
+import '@fontsource/tinos/latin-400.css';
+import '@fontsource/tinos/latin-400-italic.css';
+import '@fontsource-variable/inter/wght.css';
 import './fonts.css';
 import './globals.css';
 import Shell from '@/components/Shell';
@@ -19,7 +22,6 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
-        <link rel="preload" href="/fonts/InstrumentSerif-Regular.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
       </head>
       <body>
         <a className="skip" href="#main">
