@@ -412,12 +412,12 @@ a:hover > .arrow,
   font-weight: 500;
   transition: color 0.3s;
 }
+/* cena atual, curta e sempre inteira ("02 / 05 · Experiência") */
 .reel__status {
-  flex: 0 1 34ch;
-  min-width: 0;
-  overflow: hidden;
+  flex: none;
+  min-width: 18ch;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
 }
 .reel__segs {
   display: flex;

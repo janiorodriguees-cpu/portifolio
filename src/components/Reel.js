@@ -124,7 +124,7 @@ export default function Reel({ cases }) {
         <p className="reel__status" data-status aria-live="polite" />
         <div className="reel__segs" role="group" aria-label="Cenas do reel">
           {SEGMENTS.map((label, i) => (
-            <button key={label} type="button" className="seg" data-seg={i} aria-label={`Ir para: ${label}`}>
+            <button key={label} type="button" className="seg" data-seg={i} data-label={label} aria-label={`Ir para: ${label}`}>
               <i />
             </button>
           ))}

@@ -16,7 +16,8 @@ Next.js 15 (App Router) com `output: 'export'`, React 19, MDX para cases (`@next
 
 ## Regras de design e movimento
 - Referências do Janio: robin-noguier.com e o case da Esperanto (transições por rolagem, cortinas), Aaron Rudyk, vídeos de portfólio da Envato (reel automático).
-- O reel toca sozinho e **pausa com qualquer interação do mouse** (movimento > 60 px, clique, roda, toque, tecla). Não quebre isso.
+- O reel toca sozinho até o fim e **só pausa quando a pessoa pede** (botão "Pausar" ou clique num segmento). Fora da tela ou com a aba oculta ele pausa sozinho e retoma ao voltar. Não volte a pausar com movimento do mouse: o Janio testou e decidiu que atrapalha quem visita (out/2026).
+- A barra do reel mostra só a cena atual ("02 / 05 · Experiência"); nada de frases longas que cortam.
 - Transição de página: cortina da cor do case sobe → troca de rota → sai pelo topo. Respeitar `prefers-reduced-motion`.
 - Não use `transform` em CSS para pré-esconder elementos animados pelo GSAP (o GSAP lê como px). Use `opacity`/`clip-path`.
 - Cores: papel `#ebebe9`, tinta `#0e0e11`; cada case tem sua cor (`color`/`on` em `cases.js`).

@@ -1,24 +1,15 @@
 // Reel de abertura da home.
 //
-// Uma linha do tempo (GSAP) que toca sozinha e PARA assim que a pessoa interage
-// (mouse, scroll, teclado, toque). Depois da pausa dá para retomar, rever ou
-// pular direto para uma cena pelos segmentos da barra.
+// Uma linha do tempo (GSAP) que toca sozinha até o fim. Só pausa quando a pessoa
+// pede (botão "Pausar" ou clique num segmento para ir a uma cena). Se o reel sai da
+// tela (rolagem) ou a aba fica em segundo plano, pausa sozinho e continua ao voltar;
+// se foi a pessoa quem pausou, continua pausado.
 //
 // O módulo recebe `gsap` por parâmetro (sem importar o pacote) para rodar tanto
 // no Next.js quanto no protótipo em HTML simples.
 
 import { onReady } from './ready';
 
-const TEXT = {
-  wait: 'Reel',
-  playing: 'Reel em andamento',
-  paused: 'Pausado · role para explorar',
-  done: 'Fim do reel · role para explorar',
-};
-const TEXT_HINT = {
-  mouse: ' · mexa o mouse para pausar',
-  touch: ' · toque para pausar',
-};
 const BUTTON = { wait: 'Pausar', playing: 'Pausar', paused: 'Retomar', done: 'Rever' };
 
 // Quando cada cena começa na linha do tempo (segundos).
@@ -27,7 +18,6 @@ const STARTS = [0, 3.2, 6.8, 11.6, 16.0];
 const SHOW_AT = [2.6, 2.9, 4.75, 4.35, 2.4];
 const WIPE = 0.9; // duração da cortina que troca de cena
 const CONTENT_DELAY = 0.45; // o texto entra depois que a cortina já subiu um pouco
-const MOVE_THRESHOLD = 60; // px de movimento do mouse para contar como interação
 
 export function createReel(gsap, root) {
   const q = (sel, ctx = root) => Array.from(ctx.querySelectorAll(sel));
@@ -37,9 +27,7 @@ export function createReel(gsap, root) {
   const segs = q('[data-seg]');
   const statusEl = root.querySelector('[data-status]');
   const toggleBtn = root.querySelector('[data-toggle]');
-  const barEl = root.querySelector('[data-reel-bar]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const touch = window.matchMedia('(hover: none)').matches;
   const clamp = (n) => Math.min(1, Math.max(0, n));
   const inside = (el) => q('[data-in]', el);
 
@@ -112,23 +100,24 @@ export function createReel(gsap, root) {
 
   // ---------------------------------------------------------------- estado
   let mode = 'wait';
-  let strict = false; // depois de "Retomar", só clique/scroll/tecla/toque pausam (mouse parado não)
-  let moved = 0;
-  let lastX = null;
-  let lastY = null;
+  let autoPaused = false; // pausado pelo próprio reel (fora da tela / aba oculta), não pela pessoa
   let startTimer = null;
   let lastScene = -1;
   let lastBar = '';
   let destroyed = false;
   let stopReady = () => {};
 
+  // barra: só a cena atual, curta o bastante para nunca cortar ("02 / 05 · Experiência")
+  const pad = (n) => String(n).padStart(2, '0');
+  function setStatus(i) {
+    if (!statusEl) return;
+    const label = segs[i]?.dataset.label || '';
+    statusEl.textContent = pad(i + 1) + ' / ' + pad(segs.length) + (label ? ' · ' + label : '');
+  }
+
   function setMode(next) {
     mode = next;
     root.dataset.mode = next;
-    if (statusEl) {
-      statusEl.textContent =
-        next === 'playing' ? TEXT.playing + (touch ? TEXT_HINT.touch : TEXT_HINT.mouse) : TEXT[next];
-    }
     if (toggleBtn) toggleBtn.textContent = BUTTON[next] || 'Pausar';
   }
 
@@ -166,6 +155,7 @@ export function createReel(gsap, root) {
       lastBar = color;
       root.style.setProperty('--bar-fg', color);
     }
+    if (i !== lastScene) setStatus(i);
     lastScene = i;
   }
   tl.eventCallback('onUpdate', sync);
@@ -174,22 +164,21 @@ export function createReel(gsap, root) {
   });
 
   function play() {
+    autoPaused = false;
     if (mode === 'done') tl.restart();
     else tl.play();
     setMode('playing');
   }
-  function pause() {
-    if (mode === 'wait') {
-      clearTimeout(startTimer);
-      setMode('paused');
-      return;
-    }
+  // auto = pausa feita pelo reel (fora da tela / aba oculta): ele mesmo retoma depois
+  function pause(auto = false) {
     if (mode !== 'playing') return;
     tl.pause();
+    autoPaused = auto;
     setMode('paused');
   }
   function seekScene(i) {
     clearTimeout(startTimer);
+    autoPaused = false;
     const t = Math.min(STARTS[i] + SHOW_AT[i], tl.duration());
     tl.pause(t, false); // false: dispara os onUpdate no salto (senão o contador "10" fica parado em 0)
     setMode(i === segs.length - 1 && t >= tl.duration() - 0.01 ? 'done' : 'paused');
@@ -197,35 +186,9 @@ export function createReel(gsap, root) {
   }
 
   // ---------------------------------------------------------- interações
-  const fromBar = (e) => barEl && e.target instanceof Node && barEl.contains(e.target);
-  const onMove = (e) => {
-    if (strict || mode === 'paused' || mode === 'done' || fromBar(e)) return;
-    if (lastX !== null) moved += Math.hypot(e.clientX - lastX, e.clientY - lastY);
-    lastX = e.clientX;
-    lastY = e.clientY;
-    if (moved > MOVE_THRESHOLD) pause();
-  };
-  const onHard = (e) => {
-    if (fromBar(e)) return;
-    pause();
-  };
-  const onKey = (e) => {
-    if (['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) return;
-    if (fromBar(e)) return;
-    pause();
-  };
-  window.addEventListener('pointermove', onMove, { passive: true });
-  window.addEventListener('pointerdown', onHard, { passive: true });
-  window.addEventListener('wheel', onHard, { passive: true });
-  window.addEventListener('touchstart', onHard, { passive: true });
-  window.addEventListener('keydown', onKey);
-
   const onToggle = () => {
     if (mode === 'playing') pause();
-    else {
-      strict = true;
-      play();
-    }
+    else if (mode !== 'wait') play();
   };
   toggleBtn?.addEventListener('click', onToggle);
   const segHandlers = segs.map((seg, i) => {
@@ -234,16 +197,24 @@ export function createReel(gsap, root) {
     return h;
   });
 
-  // pausa quando a aba some ou o reel sai da tela (economiza processamento)
+  // pausa sozinho quando a aba some ou o reel sai da tela, e retoma ao voltar
+  // (só se a pausa foi dele; se a pessoa pausou, respeita)
+  let inView = true;
+  const resumeIfAuto = () => {
+    if (autoPaused && mode === 'paused' && inView && !document.hidden) play();
+  };
   const onVisibility = () => {
-    if (document.hidden) pause();
+    if (document.hidden) pause(true);
+    else resumeIfAuto();
   };
   document.addEventListener('visibilitychange', onVisibility);
   const io =
     'IntersectionObserver' in window
       ? new IntersectionObserver(
           ([entry]) => {
-            if (!entry.isIntersecting && mode === 'playing') pause();
+            inView = entry.isIntersecting;
+            if (!inView) pause(true);
+            else resumeIfAuto();
           },
           { threshold: 0.15 }
         )
@@ -257,6 +228,7 @@ export function createReel(gsap, root) {
     sync();
   } else {
     setMode('wait');
+    setStatus(0);
     sync();
     // começa quando a cortina de abertura abre (site pronto), junto com o cabeçalho
     stopReady = onReady(() => {
@@ -276,11 +248,6 @@ export function createReel(gsap, root) {
       clearTimeout(startTimer);
       tl.kill();
       io?.disconnect();
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerdown', onHard);
-      window.removeEventListener('wheel', onHard);
-      window.removeEventListener('touchstart', onHard);
-      window.removeEventListener('keydown', onKey);
       document.removeEventListener('visibilitychange', onVisibility);
       toggleBtn?.removeEventListener('click', onToggle);
       segs.forEach((seg, i) => seg.removeEventListener('click', segHandlers[i]));
