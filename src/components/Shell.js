@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { gsap, ScrollTrigger } from '@/motion/setup';
 import { createCurtain } from '@/motion/curtain';
 import { createCursor } from '@/motion/cursor';
+import { markReady } from '@/motion/ready';
+import { site } from '@/data/site';
 import { NavContext } from './nav-context';
 import Header from './Header';
 
@@ -24,14 +26,22 @@ export default function Shell({ children }) {
   useEffect(() => {
     curtain.current = createCurtain(gsap, curtainEl.current);
     const stopCursor = createCursor(gsap, cursorEl.current);
-    // o cabeçalho só entra junto com o conteúdo (evita o nome aparecer sozinho no carregamento)
+    // Abertura: no carregamento (ou ao atualizar) a cortina cobre a tela com o nome e
+    // abre quando as fontes estão prontas. Só então header, reel e entradas começam.
+    window.__shell = true; // o JavaScript carregou: a trava de segurança do layout não precisa agir
+    const loading = document.documentElement.classList.contains('is-loading');
+    if (loading) gsap.set(curtainEl.current, { clipPath: 'inset(0% 0% 0% 0%)', visibility: 'visible' });
     let alive = true;
+    let intro = null;
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
     Promise.race([fonts, new Promise((r) => setTimeout(r, 800))]).then(() => {
-      if (alive) document.documentElement.classList.add('is-ready');
+      if (!alive) return;
+      if (loading && curtain.current) intro = curtain.current.intro({ text: site.name, onOpen: markReady });
+      else markReady();
     });
     return () => {
       alive = false;
+      intro?.kill();
       stopCursor();
       curtain.current = null;
     };

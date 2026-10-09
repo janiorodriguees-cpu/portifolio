@@ -1,15 +1,17 @@
 // Abertura da página Sobre (foto + "Prazer, eu sou o Janio."), na linha do
 // "Bonjour, I'm Robin" de robin-noguier.com: o título chega com as letras afastadas
 // que vão se juntando, a foto se revela de baixo para cima e depois acompanha a
-// rolagem com um parallax leve. Se a página chegou pela cortina, espera ela abrir.
+// rolagem com um parallax leve. Espera a cortina (de abertura ou de transição) abrir.
+
+import { onReady } from './ready';
 
 export function initIntro(gsap, ScrollTrigger, root) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) return { destroy() {} };
 
-  const delay = document.documentElement.dataset.curtain === 'on' ? 0.75 : 0.2;
-
-  const ctx = gsap.context(() => {
+  const ctx = gsap.context(() => {}, root);
+  const stopReady = onReady(() => ctx.add(() => {
+    const delay = document.documentElement.dataset.curtain === 'on' ? 0.75 : 0.35;
     const photo = root.querySelector('[data-photo]');
     const inner = root.querySelector('[data-photo-in]');
 
@@ -44,10 +46,11 @@ export function initIntro(gsap, ScrollTrigger, root) {
         }
       );
     }
-  }, root);
+  }));
 
   return {
     destroy() {
+      stopReady();
       ctx.revert();
     },
   };

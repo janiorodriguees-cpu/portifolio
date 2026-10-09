@@ -7,6 +7,8 @@
 // O módulo recebe `gsap` por parâmetro (sem importar o pacote) para rodar tanto
 // no Next.js quanto no protótipo em HTML simples.
 
+import { onReady } from './ready';
+
 const TEXT = {
   wait: 'Reel',
   playing: 'Reel em andamento',
@@ -118,6 +120,7 @@ export function createReel(gsap, root) {
   let lastScene = -1;
   let lastBar = '';
   let destroyed = false;
+  let stopReady = () => {};
 
   function setMode(next) {
     mode = next;
@@ -255,13 +258,12 @@ export function createReel(gsap, root) {
   } else {
     setMode('wait');
     sync();
-    const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
-    // mesmo critério do Shell (fontes prontas ou 800 ms): reel e cabeçalho entram juntos
-    Promise.race([fonts, new Promise((r) => setTimeout(r, 800))]).then(() => {
+    // começa quando a cortina de abertura abre (site pronto), junto com o cabeçalho
+    stopReady = onReady(() => {
       if (destroyed) return;
       startTimer = setTimeout(() => {
         if (mode === 'wait' && !destroyed) play();
-      }, 120);
+      }, 250);
     });
   }
 
@@ -270,6 +272,7 @@ export function createReel(gsap, root) {
     play,
     destroy() {
       destroyed = true;
+      stopReady();
       clearTimeout(startTimer);
       tl.kill();
       io?.disconnect();

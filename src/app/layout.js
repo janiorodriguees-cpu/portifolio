@@ -14,8 +14,10 @@ export const metadata = {
 
 export const viewport = { themeColor: '#ebebe9' };
 
-// Marca a página como "com JavaScript" antes da primeira pintura (evita piscar o conteúdo animado).
-const jsFlag = `document.documentElement.classList.add('js')`;
+// Antes da primeira pintura: marca "com JavaScript" (evita piscar o conteúdo animado) e,
+// se a pessoa não pediu menos movimento, liga a cortina de abertura com o nome.
+// Trava de segurança: se o JavaScript do site não carregar, a cortina sai em 6 s.
+const jsFlag = `(function(d){d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){if(d.classList.contains('is-loading')&&!d.classList.contains('is-ready')&&!window.__shell){d.classList.remove('is-loading');d.classList.add('is-ready')}},6000)})(document.documentElement)`;
 
 export default function RootLayout({ children }) {
   return (

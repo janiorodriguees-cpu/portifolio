@@ -2,14 +2,16 @@
 
 import { useEffect } from 'react';
 import { gsap } from '@/motion/setup';
+import { onReady } from '@/motion/ready';
 
 // Entrada do conteúdo da página de case (título sobe, ficha aparece).
 // Se a página chegou por baixo da cortina, espera ela abrir.
 export default function CaseEnter() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const delay = document.documentElement.dataset.curtain === 'on' ? 0.7 : 0.15;
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {});
+    const stopReady = onReady(() => ctx.add(() => {
+      const delay = document.documentElement.dataset.curtain === 'on' ? 0.7 : 0.3;
       gsap.from('[data-case-in]', {
         yPercent: 115,
         duration: 1.1,
@@ -25,8 +27,11 @@ export default function CaseEnter() {
         stagger: 0.08,
         delay: delay + 0.35,
       });
-    });
-    return () => ctx.revert();
+    }));
+    return () => {
+      stopReady();
+      ctx.revert();
+    };
   }, []);
 
   return null;

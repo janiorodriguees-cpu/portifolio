@@ -89,9 +89,26 @@ export function createCurtain(gsap, el) {
     });
   }
 
+  // Abertura do site (carregamento ou atualização da página): a cortina já está
+  // cobrindo a tela (classe is-loading), o nome sobe, segura um instante e a cortina
+  // sai pelo topo. `onOpen` é chamado quando ela começa a abrir.
+  function intro({ text, onOpen } = {}) {
+    label.textContent = text || '';
+    covered = true;
+    dir = 'up';
+    gsap.set(el, { clipPath: FULL, visibility: 'visible', pointerEvents: 'auto' });
+    gsap.set(label, { yPercent: 115, opacity: 1 });
+    return gsap
+      .timeline()
+      .to(label, { yPercent: 0, duration: 0.9, ease: 'power4.out' })
+      .add(() => onOpen?.(), '+=0.45')
+      .add(() => reveal());
+  }
+
   return {
     cover,
     reveal,
+    intro,
     get covered() {
       return covered;
     },

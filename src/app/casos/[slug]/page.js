@@ -72,8 +72,13 @@ export default async function CasePage({ params }) {
         data-cursor="Próximo"
         style={{ '--c': next.color, '--on': next.on }}
       >
-        <span className="next__k">Próximo case</span>
-        <span className="next__t">{next.title}</span>
+        <span className="next__txt">
+          <span className="next__k">Próximo case</span>
+          <span className="next__t">{next.title}</span>
+        </span>
+        <span className="next__arrow" aria-hidden="true">
+          <span>→</span>
+        </span>
       </TLink>
       <Footer />
     </article>

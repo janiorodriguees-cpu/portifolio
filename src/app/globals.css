@@ -188,6 +188,25 @@ img, svg {
   font: 400 1.65rem / 1 var(--serif);
   letter-spacing: var(--tr-lead);
 }
+.hdr__left {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 6px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.back .arrow {
+  transition: transform 0.35s var(--ease);
+}
+.back:hover .arrow {
+  transform: translateX(-4px);
+}
 .hdr nav {
   display: flex;
   gap: clamp(16px, 3vw, 38px);
@@ -614,19 +633,23 @@ a:hover > .arrow,
 
 /* apresentação (foto + saudação): grid de 12 colunas, foto 2–5, texto 7–11,
    centralizada na vertical dentro da tela */
+/* cabe inteira na primeira tela: foto e título também são limitados pela altura */
 .intro {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: var(--col-gap);
   align-items: center;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: var(--s8) var(--gutter);
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  padding: var(--scene-top) var(--gutter) var(--s5);
 }
 .intro__photo {
   grid-column: 2 / span 4;
+  justify-self: center;
+  height: min(64svh, 560px);
+  max-width: 100%;
   aspect-ratio: 4 / 5;
-  max-height: 72svh;
   overflow: hidden;
   rotate: -3deg; /* "rotate" (e não transform) para não brigar com o GSAP */
 }
@@ -648,16 +671,16 @@ a:hover > .arrow,
   object-fit: cover;
 }
 .intro__txt {
-  grid-column: 7 / span 5;
+  grid-column: 7 / span 6;
 }
 .intro__title {
-  font: 400 var(--fs-l) / 0.92 var(--serif);
+  font: 400 min(var(--fs-l), 14svh) / 0.92 var(--serif);
   letter-spacing: var(--tr-l);
   margin-left: -0.03em;
 }
 .intro__sum {
   max-width: 34ch;
-  margin-top: var(--s5);
+  margin-top: min(var(--s5), 4svh);
   font-size: var(--fs-lead);
   line-height: 1.35;
 }
@@ -665,7 +688,7 @@ a:hover > .arrow,
   display: flex;
   flex-wrap: wrap;
   gap: var(--s1) var(--s4);
-  margin-top: var(--s4);
+  margin-top: min(var(--s4), 3svh);
   font-weight: 500;
 }
 .intro__links a {
@@ -828,8 +851,14 @@ a:hover > .arrow,
   pointer-events: none;
   clip-path: inset(100% 0% 0% 0%);
 }
+.js.is-loading .curtain {
+  visibility: visible;
+  clip-path: inset(0% 0% 0% 0%);
+}
 .curtain__label {
   display: block;
+  max-width: calc(100vw - 2 * var(--gutter));
+  text-align: center;
   overflow: hidden;
   padding: 0.08em 0.1em;
   font: 400 var(--fs-l) / 0.9 var(--serif);
@@ -995,21 +1024,50 @@ a:hover > .arrow,
 }
 .next {
   position: relative;
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: var(--s4);
   padding: clamp(80px, 14vh, 160px) var(--gutter) clamp(60px, 10vh, 120px);
   min-height: 70vh;
   background: var(--c);
   color: var(--on);
   overflow: hidden;
 }
+.next__txt {
+  display: block;
+}
 .next__k {
+  display: block;
   font-size: var(--fs-text);
   font-weight: 500;
 }
 .next__t {
+  display: block;
   margin: var(--s2) 0 0 -0.03em;
   font: 400 var(--fs-l) / 0.9 var(--serif);
   letter-spacing: var(--tr-l);
+}
+.next__arrow {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 7vw, 112px);
+  aspect-ratio: 1;
+  margin-bottom: 0.4em;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: clamp(24px, 2.4vw, 40px);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+.next__arrow span {
+  transition: transform 0.4s var(--ease);
+}
+.next:hover .next__arrow {
+  background: var(--on);
+  color: var(--c);
+}
+.next:hover .next__arrow span {
+  transform: translateX(6px);
 }
 
 /* ================================================================ SOBRE */
@@ -1074,6 +1132,11 @@ a:hover > .arrow,
     font-size: 1.3rem;
     white-space: nowrap;
   }
+  /* nas páginas internas, o "Voltar" ocupa o lugar do nome no celular */
+  .hdr__left .back + .brand,
+  .hdr__left .brand:has(+ .back) {
+    display: none;
+  }
   .hdr nav {
     gap: 14px;
     font-size: 0.875rem;
@@ -1082,16 +1145,23 @@ a:hover > .arrow,
 @media (max-width: 800px) {
   .intro {
     grid-template-columns: 1fr;
-    row-gap: var(--s5);
-    padding: var(--s7) var(--gutter);
+    align-content: center;
+    row-gap: var(--s4);
+    padding: var(--s7) var(--gutter) var(--s4);
   }
   .intro__photo,
   .intro__txt {
     grid-column: 1;
   }
   .intro__photo {
-    width: min(78%, 320px);
-    max-height: none;
+    justify-self: start;
+    height: 30svh;
+  }
+  .intro__title {
+    font-size: min(var(--fs-l), 15vw);
+  }
+  .intro__sum {
+    font-size: var(--fs-text);
   }
   .quotes__h,
   .quotes__stage,
