@@ -8,8 +8,8 @@
   --ink: #0e0e11;
   --muted: #5b5b63;
   --line: rgba(14, 14, 17, 0.18);
-  --c1: #2f3cff;
-  --c2: #d92d20;
+  --c1: #242caa;
+  --c2: #ca2215;
   --c3: #0e3a31;
   --on: #f6f4ee;
   /* vermelho de destaque: só em títulos grandes (pontuação, "+", palavras-chave) e no
@@ -245,15 +245,11 @@ img, svg {
   font-weight: 500;
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
+/* hover de todos os botões: vermelho de destaque (mesmo comportamento dos de contato) */
 .btn:hover {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
-}
-.btn--on:hover {
-  background: var(--on);
-  color: var(--c);
-  border-color: var(--on);
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
 }
 .arrow {
   display: inline-block;
@@ -1133,8 +1129,9 @@ a:hover > .arrow,
   border-color: var(--ink);
 }
 .cform__send:hover {
-  background: transparent;
-  color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
 }
 .cform__send:disabled {
   opacity: 0.6;
