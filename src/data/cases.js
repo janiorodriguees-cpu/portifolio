@@ -13,9 +13,9 @@ export const cases = [
     label: 'Título do projeto',
     sector: 'Setor',
     year: 'Ano',
-    color: '#242caa',
+    color: '#1a2188',
     on: '#f6f4ee',
-    hl: '#dd0a0d', // número do case (escolha do Janio; contraste 2,1 com o azul)
+    hl: '#dd0a0d', // número do case (escolha do Janio; contraste 2,6 com o azul)
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',
