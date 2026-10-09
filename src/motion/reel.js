@@ -12,10 +12,13 @@ import { onReady } from './ready';
 
 const BUTTON = { wait: 'Pausar', playing: 'Pausar', paused: 'Retomar', done: 'Rever' };
 
-// Quando cada cena começa na linha do tempo (segundos).
-const STARTS = [0, 3.2, 6.8, 11.6, 16.0];
+// Duração de cada cena (segundos). A dos cases depende de quantos cases existem:
+// cada um fica SUB_STEP segundos na tela.
+const DUR = { hello: 3.2, years: 5.6, skills: 4.8 };
+const SUB_STEP = 2.6;
 // Em que ponto de cada cena o conteúdo já está todo visível (para pular de cena).
-const SHOW_AT = [2.6, 2.9, 4.75, 4.35, 2.4];
+// Na cena dos cases, pular leva ao primeiro case já visível.
+const SHOW_AT = [2.6, 2.9, 4.75, 1.9, 2.4];
 const WIPE = 0.9; // duração da cortina que troca de cena
 const CONTENT_DELAY = 0.45; // o texto entra depois que a cortina já subiu um pouco
 
@@ -30,6 +33,10 @@ export function createReel(gsap, root) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (n) => Math.min(1, Math.max(0, n));
   const inside = (el) => q('[data-in]', el);
+
+  // quando cada cena começa na linha do tempo
+  const STARTS = [0, DUR.hello, DUR.hello + DUR.years, DUR.hello + DUR.years + DUR.skills];
+  STARTS.push(STARTS[3] + Math.max(1, subs.length) * SUB_STEP + 0.3);
 
   const tl = gsap.timeline({ paused: true });
   const wipe = (el, at) =>
@@ -62,7 +69,7 @@ export function createReel(gsap, root) {
     { v: 0 },
     {
       v: countTo,
-      duration: 1.5,
+      duration: 2.2, // contagem mais lenta, acompanha a cena mais longa
       ease: 'power2.out',
       onUpdate: () => {
         countEl.textContent = String(Math.round(counter.v));
@@ -83,7 +90,7 @@ export function createReel(gsap, root) {
 
   // Cena 4 · cases, um painel colorido por vez
   subs.forEach((sub, k) => {
-    const at = STARTS[3] + k * 1.45;
+    const at = STARTS[3] + k * SUB_STEP;
     wipe(sub, at);
     rise(inside(sub), at + CONTENT_DELAY, { stagger: 0.1 });
   });
@@ -145,7 +152,7 @@ export function createReel(gsap, root) {
     if (i === 3) {
       active = subs[0];
       subs.forEach((sub, k) => {
-        if (t >= STARTS[3] + k * 1.45 + 0.5) active = sub;
+        if (t >= STARTS[3] + k * SUB_STEP + 0.5) active = sub;
       });
     } else if (t < STARTS[i] + 0.5 && i > 0) {
       active = i === 4 ? subs[subs.length - 1] : scenes[i - 1];
