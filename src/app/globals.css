@@ -185,7 +185,8 @@ img, svg {
 .hdr.is-hidden a {
   pointer-events: none;
 }
-.hdr a {
+.hdr a,
+.hdr button {
   pointer-events: auto;
 }
 .brand {
@@ -1149,6 +1150,134 @@ a:hover > .arrow,
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
   font-weight: 500;
+}
+
+/* ========================================================= MENU (CELULAR)
+   Três traços de tamanhos diferentes que viram um X; o menu abre em círculo a
+   partir do botão (motion/menu.js). Só aparece em telas de até 640 px. */
+.burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  color: inherit;
+}
+.burger span {
+  position: absolute;
+  left: 10px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: center;
+  transition: transform 0.5s var(--ease), width 0.5s var(--ease), top 0.5s var(--ease), opacity 0.3s;
+}
+.burger span:nth-child(1) {
+  top: 14px;
+  width: 24px;
+}
+.burger span:nth-child(2) {
+  top: 21px;
+  width: 13px;
+}
+.burger span:nth-child(3) {
+  top: 28px;
+  width: 18px;
+}
+/* aberto: o de cima e o de baixo se cruzam no meio; o do meio encolhe e some */
+.burger[aria-expanded="true"] span:nth-child(1) {
+  top: 21px;
+  width: 24px;
+  transform: rotate(45deg);
+}
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.burger[aria-expanded="true"] span:nth-child(3) {
+  top: 21px;
+  width: 24px;
+  transform: rotate(-45deg);
+}
+
+.mmenu {
+  position: fixed;
+  inset: 0;
+  z-index: 39; /* abaixo da cortina (40) e do cabeçalho (50) */
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s5);
+  padding: 112px var(--gutter) var(--s4);
+  background: var(--ink);
+  color: var(--paper);
+  visibility: hidden;
+  pointer-events: none;
+  clip-path: circle(0px at 100% 0%);
+  overflow-y: auto;
+}
+.mmenu ol {
+  display: grid;
+  gap: var(--s1);
+}
+.mmenu__link {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 4px 0;
+}
+.mmenu__n {
+  padding-top: 0.6em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.5;
+}
+.mmenu__link .mask {
+  font: 400 clamp(52px, 15vw, 84px) / 1 var(--serif);
+  letter-spacing: var(--tr-l);
+}
+.mmenu__link > .mask > span {
+  transition: color 0.3s;
+}
+.mmenu__link:hover > .mask > span,
+.mmenu__link:active > .mask > span {
+  color: var(--accent);
+}
+.mmenu__dot {
+  display: inline-block;
+  width: 0.14em;
+  height: 0.14em;
+  margin-left: 0.08em;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: baseline;
+}
+.mmenu__foot {
+  display: grid;
+  gap: var(--s3);
+}
+.mmenu__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.mmenu .cbtn {
+  --b: var(--paper);
+  --f: var(--ink);
+}
+@media (max-width: 640px) {
+  .hdr nav {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+  .mmenu {
+    display: flex;
+  }
 }
 
 /* ============================================================ TRANSIÇÃO */
