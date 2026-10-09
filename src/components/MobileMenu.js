@@ -7,10 +7,14 @@ import TLink from './TLink';
 import ContactButtons from './ContactButtons';
 import { site } from '@/data/site';
 
+// page: em que página o link cai (para saber se troca de página)
+// current: em que página a opção aparece marcada (em vermelho); Trabalhos nunca fica
+// marcada porque é uma seção da home, e a home é o "Início".
 const ITEMS = [
-  { href: '/#trabalhos', path: '/', label: 'Trabalhos', text: 'Trabalhos' },
-  { href: '/sobre/', path: '/sobre', label: 'Sobre', text: 'Sobre' },
-  { href: '/contato/', path: '/contato', label: 'Contato', text: 'Contato' },
+  { href: '/', page: '/', current: '/', label: 'Início', text: 'Início' },
+  { href: '/#trabalhos', page: '/', current: null, label: 'Trabalhos', text: 'Trabalhos' },
+  { href: '/sobre/', page: '/sobre', current: '/sobre', label: 'Sobre', text: 'Sobre' },
+  { href: '/contato/', page: '/contato', current: '/contato', label: 'Contato', text: 'Contato' },
 ];
 
 // Menu de tela cheia do celular. A animação fica em src/motion/menu.js.
@@ -63,18 +67,16 @@ export default function MobileMenu({ open, onClose, button, pathname }) {
   const onItem = (item) => {
     // mesma página (ex.: Trabalhos estando na home): fecha com animação e rola
     // outra página: a cortina sobe por cima do menu, que some quando a rota troca
-    navigating.current = item.path !== pathname;
+    navigating.current = item.page !== pathname;
     onClose();
   };
-
-  const pad = (n) => String(n).padStart(2, '0');
 
   return (
     <div className="mmenu" id="menu-celular" ref={el} aria-hidden={!open} role="dialog" aria-modal="true" aria-label="Menu">
       <nav className="mmenu__nav" aria-label="Principal">
         <ol>
-          {ITEMS.map((item, i) => {
-            const current = item.path === pathname && item.path !== '/';
+          {ITEMS.map((item) => {
+            const current = item.current === pathname;
             return (
               <li key={item.href}>
                 <TLink
@@ -85,12 +87,8 @@ export default function MobileMenu({ open, onClose, button, pathname }) {
                   tabIndex={open ? 0 : -1}
                   onClick={() => onItem(item)}
                 >
-                  <span className="mmenu__n">{pad(i + 1)}</span>
                   <span className="mask">
-                    <span data-menu-in>
-                      {item.label}
-                      {current && <span className="mmenu__dot" aria-hidden="true" />}
-                    </span>
+                    <span data-menu-in>{item.label}</span>
                   </span>
                 </TLink>
               </li>

@@ -1221,21 +1221,16 @@ a:hover > .arrow,
   gap: var(--s1);
 }
 .mmenu__link {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 4px 0;
-}
-.mmenu__n {
-  padding-top: 0.6em;
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.5;
+  display: block;
+  padding: 2px 0;
 }
 .mmenu__link .mask {
-  font: 400 clamp(52px, 15vw, 84px) / 1 var(--serif);
+  font: 400 clamp(40px, 11vw, 64px) / 1.05 var(--serif);
   letter-spacing: var(--tr-l);
+}
+/* página atual em vermelho (na home, "Início") */
+.mmenu__link[aria-current="page"] > .mask > span {
+  color: var(--accent);
 }
 .mmenu__link > .mask > span {
   transition: color 0.3s;
@@ -1243,15 +1238,6 @@ a:hover > .arrow,
 .mmenu__link:hover > .mask > span,
 .mmenu__link:active > .mask > span {
   color: var(--accent);
-}
-.mmenu__dot {
-  display: inline-block;
-  width: 0.14em;
-  height: 0.14em;
-  margin-left: 0.08em;
-  border-radius: 50%;
-  background: var(--accent);
-  vertical-align: baseline;
 }
 .mmenu__foot {
   display: grid;
