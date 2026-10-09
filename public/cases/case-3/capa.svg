@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1240" width="800" height="1240">
+<defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f6b55"/><stop offset="1" stop-color="#082820"/></linearGradient>
+ <radialGradient id="l" cx="0.75" cy="0.15" r="0.7"><stop offset="0" stop-color="#fff" stop-opacity="0.35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#000" flood-opacity="0.35"/></filter>
+</defs>
+<rect width="800" height="1240" fill="url(#g)"/>
+<rect width="800" height="1240" fill="url(#l)"/>
+<circle cx="690" cy="1080" r="260" fill="#f2c14e" opacity="0.18"/>
+<circle cx="90" cy="180" r="150" fill="#fff" opacity="0.06"/>
+<g filter="url(#s)" transform="translate(150 150) rotate(-3 250 470)">
+ <rect x="0" y="0" width="520" height="980" rx="56" fill="#0b1f1a"/>
+ <rect x="14" y="14" width="492" height="952" rx="44" fill="#f1ece1"/>
+ <rect x="200" y="30" width="120" height="22" rx="11" fill="#0b1f1a"/>
+ <g transform="translate(-30 0)">
+  <text x="70" y="128" font-family="Georgia, serif" font-size="34" fill="#0b1f1a">Feira Viva</text>
+  <text x="70" y="160" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#0b1f1a" opacity="0.55">Mercado online</text>
+  <circle cx="500" cy="122" r="24" fill="#082820"/>
+  <rect x="70" y="200" width="430" height="200" rx="28" fill="#082820"/>
+  <text x="100" y="250" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#fff" opacity="0.75">Seu carrinho</text>
+  <text x="100" y="312" font-family="Georgia, serif" font-size="52" fill="#fff">R$ 186,40</text>
+  <rect x="100" y="344" width="130" height="34" rx="17" fill="#f2c14e"/>
+  <rect x="246" y="344" width="110" height="34" rx="17" fill="#fff" opacity="0.2"/>
+  <rect x="92" y="483" width="26" height="77" rx="6" fill="#082820" opacity="0.85"/><rect x="136" y="506.8" width="26" height="53.199999999999996" rx="6" fill="#082820" opacity="0.85"/><rect x="180" y="459.2" width="26" height="100.8" rx="6" fill="#082820" opacity="0.85"/><rect x="224" y="476" width="26" height="84" rx="6" fill="#082820" opacity="0.85"/><rect x="268" y="434" width="26" height="125.99999999999999" rx="6" fill="#082820" opacity="0.85"/><rect x="312" y="492.8" width="26" height="67.19999999999999" rx="6" fill="#f2c14e" opacity="1"/><rect x="356" y="453.6" width="26" height="106.39999999999999" rx="6" fill="#082820" opacity="0.85"/>
+  <rect x="70" y="566" width="430" height="2" fill="#0b1f1a" opacity="0.1"/>
+  <g transform="translate(70 640)"><circle cx="22" cy="22" r="22" fill="#1f6b55" opacity="0.25"/><rect x="62" y="8" width="150" height="12" rx="6" fill="#0b1f1a" opacity="0.75"/><rect x="62" y="28" width="96" height="9" rx="4.5" fill="#0b1f1a" opacity="0.3"/><text x="378" y="27" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0b1f1a">R$ 9,90</text><text x="62" y="-4" font-size="0" >Tomate italiano</text></g><g transform="translate(70 726)"><circle cx="22" cy="22" r="22" fill="#1f6b55" opacity="0.25"/><rect x="62" y="8" width="187" height="12" rx="6" fill="#0b1f1a" opacity="0.75"/><rect x="62" y="28" width="96" height="9" rx="4.5" fill="#0b1f1a" opacity="0.3"/><text x="378" y="27" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0b1f1a">R$ 18,00</text><text x="62" y="-4" font-size="0" >Pão de fermentação</text></g><g transform="translate(70 812)"><circle cx="22" cy="22" r="22" fill="#1f6b55" opacity="0.25"/><rect x="62" y="8" width="164" height="12" rx="6" fill="#0b1f1a" opacity="0.75"/><rect x="62" y="28" width="96" height="9" rx="4.5" fill="#0b1f1a" opacity="0.3"/><text x="378" y="27" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#0b1f1a">R$ 42,50</text><text x="62" y="-4" font-size="0" >Café especial</text></g>
+ </g>
+</g>
+<g filter="url(#s)" transform="translate(470 860) rotate(4)">
+ <rect width="250" height="150" rx="26" fill="#f1ece1"/>
+ <circle cx="50" cy="50" r="22" fill="#f2c14e"/>
+ <rect x="86" y="38" width="120" height="12" rx="6" fill="#0b1f1a" opacity="0.7"/>
+ <rect x="86" y="58" width="80" height="9" rx="4.5" fill="#0b1f1a" opacity="0.3"/>
+ <rect x="28" y="96" width="194" height="28" rx="14" fill="#082820"/>
+</g>
+</svg>
