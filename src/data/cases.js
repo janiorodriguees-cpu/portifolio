@@ -15,7 +15,7 @@ export const cases = [
     year: 'Ano',
     color: '#2f3cff',
     on: '#f6f4ee',
-    hl: '#c8ff5a', // número do case: verde-limão sobre o azul (contraste 5,6)
+    hl: '#dd0a0d', // número do case (escolha do Janio; contraste 1,3 com o azul)
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',
@@ -32,7 +32,7 @@ export const cases = [
     year: 'Ano',
     color: '#d92d20',
     on: '#f6f4ee',
-    hl: '#ffe3a3', // amarelo-claro sobre o vermelho (contraste 3,9)
+    hl: '#0004ff', // escolha do Janio; contraste 1,8 com o vermelho
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',
@@ -49,7 +49,7 @@ export const cases = [
     year: 'Ano',
     color: '#0e3a31',
     on: '#f1ece1',
-    hl: '#f2c14e', // dourado sobre o verde (contraste 7,5)
+    hl: '#dd0a0d', // escolha do Janio; contraste 2,5 com o verde
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',

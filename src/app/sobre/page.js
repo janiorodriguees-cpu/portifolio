@@ -2,7 +2,6 @@ import Section from '@/components/mdx/Section';
 import Footer from '@/components/Footer';
 import Intro from '@/components/Intro';
 import Testimonials from '@/components/Testimonials';
-import ContactButtons from '@/components/ContactButtons';
 
 export const metadata = { title: 'Sobre' };
 
@@ -58,10 +57,6 @@ export default function Sobre() {
         </Section>
 
         <Testimonials />
-
-        <Section title="Contato">
-          <ContactButtons />
-        </Section>
       </div>
       <Footer />
     </>

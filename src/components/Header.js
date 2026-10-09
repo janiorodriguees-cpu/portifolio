@@ -16,15 +16,15 @@ export default function Header() {
   useEffect(() => watchHeaderScroll(el.current), []);
 
   // Na home, o canto esquerdo é o nome. Nas páginas internas ele vira "← Voltar"
-  // (no mesmo lugar, uma ação só, como em robin-noguier.com): dos cases volta para a
-  // lista de trabalhos; do Sobre, para o início.
+  // (no mesmo lugar, uma ação só, como em robin-noguier.com) e sempre leva ao topo
+  // da home. Dos cases a cortina sobe sem rótulo; do Sobre/Contato mostra "Início".
   const inCase = pathname.startsWith('/casos/');
-  const back = pathname === '/' ? null : inCase ? { href: '/#trabalhos', text: 'Trabalhos' } : { href: '/', text: 'Início' };
+  const back = pathname === '/' ? null : { href: '/', text: inCase ? '' : 'Início' };
 
   return (
     <header className="hdr" ref={el}>
       {back ? (
-        <TLink href={back.href} text={back.text} className="back" aria-label={`Voltar para ${back.text.toLowerCase()}`}>
+        <TLink href={back.href} text={back.text} className="back" aria-label="Voltar para o início">
           <span className="arrow" aria-hidden="true">
             ←
           </span>
