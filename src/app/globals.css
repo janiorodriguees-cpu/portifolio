@@ -927,7 +927,8 @@ a:hover > .arrow,
   --b: var(--paper);
   --f: var(--ink);
 }
-.cbtn--in {
+.cbtn--in,
+.cbtn--cv {
   background: transparent;
   color: var(--b);
 }

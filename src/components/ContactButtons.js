@@ -6,7 +6,7 @@ import { site } from '@/data/site';
 // Botões de contato (referência: botão de e-mail de robin-noguier.com).
 // E-mail: mostra o endereço; no hover vira "Copiar e-mail" com o avatar entrando
 // pela esquerda; o clique COPIA o endereço (não abre o app de e-mail do sistema).
-// LinkedIn: abre o perfil numa nova aba.
+// LinkedIn: abre o perfil numa nova aba. Currículo: baixa o PDF.
 
 const MailIcon = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -17,6 +17,12 @@ const MailIcon = () => (
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
     <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z" />
+  </svg>
+);
+const FileIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <path d="M6 3h8l4 4v14H6z" />
+    <path d="M14 3v4h4M9 12h6M9 16h6" />
   </svg>
 );
 const initials = site.name
@@ -64,7 +70,7 @@ export function EmailButton() {
       aria-label={`Copiar e-mail: ${site.email}`}
     >
       <span className="cbtn__avatar" aria-hidden="true">
-        {site.photo ? <img src={site.photo} alt="" /> : initials}
+        {site.avatar ? <img src={site.avatar} alt="" /> : initials}
       </span>
       <span className="cbtn__icon" aria-hidden="true">
         <MailIcon />
@@ -118,11 +124,28 @@ export function LinkedInButton() {
   );
 }
 
+export function CvButton() {
+  return (
+    <a className="cbtn cbtn--cv" href={site.cv} download="Curriculo_Janio_Rodrigues.pdf">
+      <span className="cbtn__icon" aria-hidden="true">
+        <FileIcon />
+      </span>
+      <span className="cbtn__swap">
+        <span className="cbtn__a">Currículo</span>
+        <span className="cbtn__b" aria-hidden="true">
+          Baixar PDF ↓
+        </span>
+      </span>
+    </a>
+  );
+}
+
 export default function ContactButtons() {
   return (
     <div className="cbtns">
       <EmailButton />
       <LinkedInButton />
+      <CvButton />
     </div>
   );
 }

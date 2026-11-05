@@ -34,9 +34,8 @@ Os cases vêm de clientes de consultoria (Cielo, Bradesco, Carrefour, Fleury, Al
 Contexto e problema · Meu papel e o time · Processo e facilitação · Decisões e o que foi descartado · Solução · Resultado e aprendizados.
 
 ## Pendências
-- Trocar e-mail, LinkedIn e URL em `src/data/site.js`; adicionar `public/curriculo.pdf`.
 - Escrever os cases reais (Cielo ARV, Fleury, Bradesco, Alelo, Carrefour, CTC) e a página Sobre.
 - Formulário de contato: criar o formulário no Formspree e colar o endereço em `form` (`site.js`). Não use `mailto:` no site (abre o seletor de apps do Windows); e-mail é copiado pelo botão.
-- Foto em `public/foto.jpg` (`photo` em `site.js`) e depoimentos reais e autorizados em `src/data/testimonials.js`.
+- Depoimentos reais e autorizados em `src/data/testimonials.js`.
 - Definir domínio (janiorodrigues.com) e hospedagem.
 - Primeira execução: rodar `npm install` e `npm run dev` e corrigir qualquer erro de build.
