@@ -14,11 +14,12 @@ const BUTTON = { wait: 'Pausar', playing: 'Pausar', paused: 'Retomar', done: 'Re
 
 // Duração de cada cena (segundos). A dos cases depende de quantos cases existem:
 // cada um fica SUB_STEP segundos na tela.
-const DUR = { hello: 3.2, years: 5.6, skills: 4.8 };
+const DUR = { hello: 3.2, years: 5.6, skills: 7 };
 const SUB_STEP = 2.6;
+const SKILL_STEP = 0.8; // intervalo entre as atividades da cena 3
 // Em que ponto de cada cena o conteúdo já está todo visível (para pular de cena).
 // Na cena dos cases, pular leva ao primeiro case já visível.
-const SHOW_AT = [2.6, 2.9, 4.75, 1.9, 2.4];
+const SHOW_AT = [2.6, 2.9, 4.9, 1.9, 2.4];
 const WIPE = 0.9; // duração da cortina que troca de cena
 const CONTENT_DELAY = 0.45; // o texto entra depois que a cortina já subiu um pouco
 
@@ -81,9 +82,11 @@ export function createReel(gsap, root) {
   // Cena 3 · o que eu faço (lista que se acende linha a linha)
   wipe(scenes[2], STARTS[2]);
   rise(q('.kicker [data-in]', scenes[2]), STARTS[2] + CONTENT_DELAY);
+  // cada atividade entra SKILL_STEP s depois da anterior e apaga a anterior; a última
+  // fica acesa (~2 s) até a cortina da próxima cena
   const skills = q('.skills li', scenes[2]);
   skills.forEach((li, k) => {
-    const at = STARTS[2] + 0.9 + k * 0.5;
+    const at = STARTS[2] + 0.9 + k * SKILL_STEP;
     rise(inside(li), at, { duration: 0.8 });
     if (k > 0) tl.to(skills[k - 1], { opacity: 0.2, duration: 0.45, ease: 'power2.out' }, at);
   });

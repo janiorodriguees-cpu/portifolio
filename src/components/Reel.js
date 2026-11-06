@@ -9,13 +9,11 @@ import { site } from '@/data/site';
 
 // Na ordem do processo, do problema ao teste.
 const SKILLS = [
-  'Conhecendo o problema',
-  'Entrevistas com usuários',
-  'Dinâmicas',
-  'Mapeamentos',
-  'Fluxos e jornadas',
-  'Wireframe e protótipo',
-  'Testes de usabilidade',
+  'Discovery e pesquisa',
+  'Problemas e oportunidades',
+  'Jornadas e experiências',
+  'Soluções e protótipos',
+  'Testes e validação',
 ];
 const SEGMENTS = ['Olá', 'Experiência', 'Meu dia a dia', 'Trabalhos', 'Contato'];
 
@@ -77,7 +75,7 @@ export default function Reel({ cases }) {
         {/* 3 · o que eu faço */}
         <div className="scene" data-scene data-bg="light" aria-hidden="true">
           <p className="kicker">
-            <Line>Um resumo do meu dia a dia</Line>
+            <Line>Por trás de cada solução</Line>
           </p>
           <ul className="skills">
             {SKILLS.map((s) => (
