@@ -383,6 +383,12 @@ a:hover > .arrow,
   letter-spacing: var(--tr-l);
   margin: 0 0 var(--s2) -0.03em;
 }
+/* logo do cliente no lugar do título: altura proporcional ao tamanho L */
+.sub__logo {
+  display: block;
+  height: 0.8em;
+  width: auto;
+}
 .sub__d {
   font-size: var(--fs-text);
 }

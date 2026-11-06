@@ -95,13 +95,15 @@ export default function Reel({ cases }) {
             <div className="sub" data-sub key={c.slug} style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}>
               <p className="sub__t">
                 <Line>
-                  <CaseName title={c.title} />
+                  {c.reel?.logo ? (
+                    <img className="sub__logo" src={c.reel.logo} alt={c.reel.logoAlt || c.title} />
+                  ) : (
+                    <CaseName title={c.title} />
+                  )}
                 </Line>
               </p>
               <p className="sub__d">
-                <Line>
-                  {c.label} · {c.sector}
-                </Line>
+                <Line>{c.reel?.line || `${c.label} · ${c.sector}`}</Line>
               </p>
             </div>
           ))}
