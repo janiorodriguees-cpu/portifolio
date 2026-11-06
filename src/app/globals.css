@@ -358,6 +358,12 @@ a:hover > .arrow,
 .skills li:nth-child(even) {
   font-style: italic;
 }
+/* frase de fechamento da cena 3: mesmo estilo do título pequeno (.kicker) */
+.skills__ai {
+  margin-top: var(--s3);
+  font-weight: 500;
+  font-size: var(--fs-label);
+}
 /* cena 4 */
 .sub {
   position: absolute;

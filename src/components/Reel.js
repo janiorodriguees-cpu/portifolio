@@ -84,6 +84,9 @@ export default function Reel({ cases }) {
               </li>
             ))}
           </ul>
+          <p className="skills__ai">
+            <Line>✦ IA integrada ao processo de design.</Line>
+          </p>
         </div>
 
         {/* 4 · cases, um painel colorido por vez */}
