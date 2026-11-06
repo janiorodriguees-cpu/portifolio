@@ -41,7 +41,8 @@ export default function Reel({ cases }) {
         <div className="scene" data-scene data-bg="light" aria-hidden="true">
           <p className="scene__lead">
             <Line>Eu sou o Janio,</Line>
-            <Line>UX e Product Designer.</Line>
+            {/* espaços fixos: em telas estreitas a quebra cai depois do "|" */}
+            <Line>Product&nbsp;Designer | UX/UI&nbsp;Designer.</Line>
           </p>
           <div className="hello">
             {[...'Olá.'].map((ch, i) => (
