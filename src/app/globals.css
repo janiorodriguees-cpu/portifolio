@@ -318,7 +318,7 @@ a:hover > .arrow,
 .scene__lead {
   font: 400 var(--fs-lead) / 1.1 var(--serif);
   letter-spacing: var(--tr-lead);
-  margin-bottom: var(--s2);
+  margin-top: var(--s3);
 }
 .hello {
   display: flex;
