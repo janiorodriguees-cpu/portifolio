@@ -16,8 +16,15 @@ export const cases = [
     color: '#1a2188',
     on: '#f6f4ee',
     hl: '#dd0a0d', // número do case (escolha do Janio; contraste 2,6 com o azul)
-    // só no reel da home (cena 4): logo no lugar do título e a linha de baixo
-    reel: { logo: '/cases/case-1/cielo-logo.png', logoAlt: 'Cielo', line: 'Serviços financeiros' },
+    // só no reel da home (cena 4): logo no lugar do título, a linha de baixo e as cores
+    // do painel (fundo e texto). O cabeçalho e a barra do reel se ajustam sozinhos.
+    reel: {
+      logo: '/cases/case-1/cielo-logo.png',
+      logoAlt: 'Cielo',
+      line: 'Serviços financeiros',
+      color: '#B9C0C9', // fundo
+      on: '#303943', // texto (contraste 6,4 com o fundo)
+    },
     summary: 'Uma frase sobre o problema, o que você fez e o que mudou depois.',
     role: 'A definir',
     team: 'A definir',

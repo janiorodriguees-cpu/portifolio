@@ -92,7 +92,7 @@ export default function Reel({ cases }) {
         {/* 4 · cases, um painel colorido por vez */}
         <div className="scene scene--cases" data-scene aria-hidden="true">
           {cases.map((c) => (
-            <div className="sub" data-sub key={c.slug} style={{ '--c': c.color, '--on': c.on, '--hl': c.hl }}>
+            <div className="sub" data-sub key={c.slug} style={{ '--c': c.reel?.color || c.color, '--on': c.reel?.on || c.on, '--hl': c.hl }}>
               <p className="sub__t">
                 <Line>
                   {c.reel?.logo ? (
