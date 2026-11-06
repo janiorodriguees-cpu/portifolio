@@ -82,17 +82,17 @@ export function createReel(gsap, root) {
   // Cena 3 · o que eu faço (lista que se acende linha a linha)
   wipe(scenes[2], STARTS[2]);
   rise(q('.kicker [data-in]', scenes[2]), STARTS[2] + CONTENT_DELAY);
-  // cada atividade entra SKILL_STEP s depois da anterior e apaga a anterior; a última
-  // continua acesa e, logo depois dela, entra a frase sobre IA (~2 s na tela)
+  // cada atividade entra SKILL_STEP s depois da anterior e apaga a anterior; logo
+  // depois da última entra a frase sobre IA (~2 s na tela), que apaga a última
   const skills = q('.skills li', scenes[2]);
   skills.forEach((li, k) => {
     const at = STARTS[2] + 0.9 + k * SKILL_STEP;
     rise(inside(li), at, { duration: 0.8 });
     if (k > 0) tl.to(skills[k - 1], { opacity: 0.2, duration: 0.45, ease: 'power2.out' }, at);
   });
-  rise(q('.skills__ai [data-in]', scenes[2]), STARTS[2] + 0.9 + (skills.length - 1) * SKILL_STEP + 0.6, {
-    duration: 0.8,
-  });
+  const aiAt = STARTS[2] + 0.9 + (skills.length - 1) * SKILL_STEP + 0.6;
+  rise(q('.skills__ai [data-in]', scenes[2]), aiAt, { duration: 0.8 });
+  tl.to(skills[skills.length - 1], { opacity: 0.2, duration: 0.45, ease: 'power2.out' }, aiAt);
 
   // Cena 4 · cases, um painel colorido por vez
   subs.forEach((sub, k) => {
