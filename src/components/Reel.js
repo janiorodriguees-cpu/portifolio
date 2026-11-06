@@ -69,8 +69,8 @@ export default function Reel({ cases }) {
             </i>
           </div>
           <p className="lead2">
-            <Line>desenhando produtos digitais,</Line>
-            <Line>da pesquisa ao protótipo testado.</Line>
+            <Line>entendendo problemas,</Line>
+            <Line>construindo soluções.</Line>
           </p>
         </div>
 
