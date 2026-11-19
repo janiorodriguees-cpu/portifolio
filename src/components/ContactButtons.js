@@ -53,18 +53,23 @@ async function copy(text) {
 // Botões compactos que crescem no hover (classe .cbtn--grow): parado mostram um
 // rótulo curto; no hover cresce até caber o texto de baixo. As larguras dos dois
 // textos são medidas aqui e viram --wa/--wb no CSS, para a largura animar.
-// Mede só quando o botão está visível (no menu do celular ele nasce escondido);
+// Os textos têm largura própria (max-content no CSS), então a medida não depende
+// do tamanho atual do botão (antes, medir com o botão crescido gravava a largura
+// errada). Mede só quando visível (no menu do celular ele nasce escondido);
 // `dep` remede quando o texto de baixo muda (ex.: "E-mail copiado ✓").
+function measureSwap(swap) {
+  const a = Math.ceil(swap.querySelector('.cbtn__a').getBoundingClientRect().width);
+  const b = Math.ceil(swap.querySelector('.cbtn__b').getBoundingClientRect().width);
+  if (!a || !b) return null;
+  swap.style.setProperty('--wa', `${a}px`);
+  swap.style.setProperty('--wb', `${b}px`);
+  return { a, b };
+}
+
 function useGrow(dep) {
   const ref = useRef(null);
   const measure = useCallback(() => {
-    const el = ref.current;
-    if (!el) return;
-    const a = el.querySelector('.cbtn__a').scrollWidth;
-    const b = el.querySelector('.cbtn__b').scrollWidth;
-    if (!a || !b) return;
-    el.style.setProperty('--wa', `${a}px`);
-    el.style.setProperty('--wb', `${b}px`);
+    if (ref.current) measureSwap(ref.current);
   }, []);
   useEffect(() => {
     measure();
@@ -183,9 +188,44 @@ export function CvButton() {
   );
 }
 
+// Fileira dos três botões. Se a linha não tem espaço para um botão crescer no
+// hover, eles ficam empilhados desde o início; senão a fileira já reserva esse
+// espaço (min-width). Assim o hover nunca faz um botão pular de linha (e voltar,
+// em loop) nem empurra o link ao lado no rodapé.
+const GROW_SLACK = 32; // folga para "E-mail copiado ✓", maior que o hover
+
 export default function ContactButtons() {
+  const row = useRef(null);
+  useEffect(() => {
+    const el = row.current;
+    if (!el) return;
+    const fit = () => {
+      const btns = [...el.children];
+      let rest = 0;
+      let grow = 0;
+      for (const btn of btns) {
+        const swap = btn.querySelector('.cbtn__swap');
+        const m = measureSwap(swap);
+        if (!m) return; // escondido (menu do celular fechado)
+        rest += btn.getBoundingClientRect().width - swap.getBoundingClientRect().width + m.a;
+        grow = Math.max(grow, m.b - m.a);
+      }
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      const need = Math.ceil(rest + gap * (btns.length - 1) + grow + GROW_SLACK);
+      const avail = el.parentElement.getBoundingClientRect().width;
+      const stacked = need > avail;
+      el.classList.toggle('is-stacked', stacked);
+      el.style.minWidth = stacked ? '' : `${need}px`;
+    };
+    fit();
+    document.fonts?.ready.then(fit);
+    const ro = new ResizeObserver(fit);
+    ro.observe(el.parentElement);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <div className="cbtns">
+    <div className="cbtns" ref={row}>
       <EmailButton />
       <LinkedInButton />
       <CvButton />

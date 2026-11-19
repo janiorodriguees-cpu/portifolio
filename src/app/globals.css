@@ -1019,10 +1019,19 @@ a:hover > .arrow,
   width: var(--wa, auto);
   transition: width 0.45s var(--ease);
 }
+.cbtn--grow .cbtn__a,
+.cbtn--grow .cbtn__b {
+  width: max-content;
+}
 .cbtn--grow .cbtn__b {
   position: absolute;
   top: 0;
   left: 0;
+}
+/* sem espaço para crescer na linha: empilhados (ver ContactButtons) */
+.cbtns.is-stacked {
+  flex-direction: column;
+  align-items: flex-start;
 }
 .cbtn--grow:hover .cbtn__swap,
 .cbtn--grow:focus-visible .cbtn__swap,
