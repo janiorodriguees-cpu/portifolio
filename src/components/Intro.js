@@ -47,7 +47,7 @@ export default function Intro() {
             LinkedIn
           </a>
           <CopyEmailLink />
-          <a href={site.cv} download="Curriculo_Janio_Rodrigues.pdf">
+          <a href={site.cv} target="_blank" rel="noopener noreferrer">
             Currículo
           </a>
         </p>

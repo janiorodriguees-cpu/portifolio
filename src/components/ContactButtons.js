@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { site } from '@/data/site';
 
 // Botões de contato (referência: botão de e-mail de robin-noguier.com).
-// E-mail: mostra o endereço; no hover vira "Copiar e-mail" com o avatar entrando
+// E-mail: mostra "E-mail" (endereço no title); no hover vira "Copiar e-mail" com o avatar entrando
 // pela esquerda; o clique COPIA o endereço (não abre o app de e-mail do sistema).
-// LinkedIn: abre o perfil numa nova aba. Currículo: baixa o PDF.
+// LinkedIn: abre o perfil numa nova aba. Currículo ("CV"): abre o PDF numa nova aba (o
+// portfólio continua aberto; quem quiser baixa pelo visualizador do navegador).
 
 const MailIcon = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -49,10 +50,34 @@ async function copy(text) {
   }
 }
 
+// Botões compactos que crescem no hover (classe .cbtn--grow): parado mostram um
+// rótulo curto; no hover cresce até caber o texto de baixo. As larguras dos dois
+// textos são medidas aqui e viram --wa/--wb no CSS, para a largura animar.
+// Mede só quando o botão está visível (no menu do celular ele nasce escondido);
+// `dep` remede quando o texto de baixo muda (ex.: "E-mail copiado ✓").
+function useGrow(dep) {
+  const ref = useRef(null);
+  const measure = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    const a = el.querySelector('.cbtn__a').scrollWidth;
+    const b = el.querySelector('.cbtn__b').scrollWidth;
+    if (!a || !b) return;
+    el.style.setProperty('--wa', `${a}px`);
+    el.style.setProperty('--wb', `${b}px`);
+  }, []);
+  useEffect(() => {
+    measure();
+    document.fonts?.ready.then(measure);
+  }, [measure, dep]);
+  return [ref, measure];
+}
+
 export function EmailButton() {
   const [copied, setCopied] = useState(false);
   const timer = useRef(0);
   useEffect(() => () => clearTimeout(timer.current), []);
+  const [swap, measure] = useGrow(copied);
 
   const onClick = async () => {
     if (await copy(site.email)) {
@@ -65,8 +90,11 @@ export function EmailButton() {
   return (
     <button
       type="button"
-      className={`cbtn cbtn--mail${copied ? ' is-copied' : ''}`}
+      className={`cbtn cbtn--mail cbtn--grow${copied ? ' is-copied' : ''}`}
       onClick={onClick}
+      onPointerEnter={measure}
+      onFocus={measure}
+      title={site.email}
       aria-label={`Copiar e-mail: ${site.email}`}
     >
       <span className="cbtn__avatar" aria-hidden="true">
@@ -75,8 +103,8 @@ export function EmailButton() {
       <span className="cbtn__icon" aria-hidden="true">
         <MailIcon />
       </span>
-      <span className="cbtn__swap" aria-hidden="true">
-        <span className="cbtn__a">{site.email}</span>
+      <span className="cbtn__swap" ref={swap} aria-hidden="true">
+        <span className="cbtn__a">E-mail</span>
         <span className="cbtn__b">{copied ? 'E-mail copiado ✓' : 'Copiar e-mail'}</span>
       </span>
       <span className="sr-only" aria-live="polite">
@@ -109,32 +137,47 @@ export function CopyEmailLink() {
 }
 
 export function LinkedInButton() {
+  const [swap, measure] = useGrow();
   return (
-    <a className="cbtn cbtn--in" href={site.linkedin} target="_blank" rel="noopener noreferrer">
+    <a
+      className="cbtn cbtn--in cbtn--grow"
+      href={site.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn: abrir perfil (abre em nova aba)"
+      onPointerEnter={measure}
+      onFocus={measure}
+    >
       <span className="cbtn__icon" aria-hidden="true">
         <LinkedInIcon />
       </span>
-      <span className="cbtn__swap">
+      <span className="cbtn__swap" ref={swap} aria-hidden="true">
         <span className="cbtn__a">LinkedIn</span>
-        <span className="cbtn__b" aria-hidden="true">
-          Abrir perfil ↗
-        </span>
+        <span className="cbtn__b">Abrir perfil ↗</span>
       </span>
     </a>
   );
 }
 
+// Currículo: parado mostra só "CV"; no hover cresce até "Visualizar ↗".
 export function CvButton() {
+  const [swap, measure] = useGrow();
   return (
-    <a className="cbtn cbtn--cv" href={site.cv} download="Curriculo_Janio_Rodrigues.pdf">
+    <a
+      className="cbtn cbtn--cv cbtn--grow"
+      href={site.cv}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Visualizar currículo (PDF, abre em nova aba)"
+      onPointerEnter={measure}
+      onFocus={measure}
+    >
       <span className="cbtn__icon" aria-hidden="true">
         <FileIcon />
       </span>
-      <span className="cbtn__swap">
-        <span className="cbtn__a">Currículo</span>
-        <span className="cbtn__b" aria-hidden="true">
-          Baixar PDF ↓
-        </span>
+      <span className="cbtn__swap" ref={swap} aria-hidden="true">
+        <span className="cbtn__a">CV</span>
+        <span className="cbtn__b">Visualizar ↗</span>
       </span>
     </a>
   );

@@ -1011,6 +1011,30 @@ a:hover > .arrow,
 .cbtn.is-copied .cbtn__b {
   transform: none;
 }
+/* E-mail, LinkedIn e CV: compactos parados e crescem no hover até caber o texto de
+   baixo; larguras vêm do useGrow (--wa/--wb). O texto do hover fica fora do fluxo
+   para não reservar espaço. */
+.cbtn--grow .cbtn__swap {
+  position: relative;
+  width: var(--wa, auto);
+  transition: width 0.45s var(--ease);
+}
+.cbtn--grow .cbtn__b {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.cbtn--grow:hover .cbtn__swap,
+.cbtn--grow:focus-visible .cbtn__swap,
+.cbtn--grow.is-copied .cbtn__swap {
+  width: var(--wb, auto);
+}
+.cbtn--grow:focus-visible .cbtn__a {
+  transform: translateY(-110%);
+}
+.cbtn--grow:focus-visible .cbtn__b {
+  transform: none;
+}
 
 /* =============================================================== CONTATO */
 .contact {
