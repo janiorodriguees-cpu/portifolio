@@ -188,10 +188,12 @@ export function CvButton() {
   );
 }
 
-// Fileira dos três botões. Se a linha não tem espaço para um botão crescer no
-// hover, eles ficam empilhados desde o início; senão a fileira já reserva esse
-// espaço (min-width). Assim o hover nunca faz um botão pular de linha (e voltar,
-// em loop) nem empurra o link ao lado no rodapé.
+// Fileira dos três botões. O hover nunca pode fazer um botão pular de linha (ele
+// sai de baixo do mouse, encolhe, volta, em loop). Então:
+// - cabe numa linha mesmo com um botão crescido: uma linha, com o espaço do
+//   crescimento já reservado (min-width; não empurra o link ao lado no rodapé);
+// - não cabe e há mouse: duas linhas fixas (E-mail + LinkedIn / CV), em grade;
+// - telas de toque (sem hover): quebra de linha normal.
 const GROW_SLACK = 32; // folga para "E-mail copiado ✓", maior que o hover
 
 export default function ContactButtons() {
@@ -201,21 +203,24 @@ export default function ContactButtons() {
     if (!el) return;
     const fit = () => {
       const btns = [...el.children];
-      let rest = 0;
+      const rest = [];
       let grow = 0;
       for (const btn of btns) {
         const swap = btn.querySelector('.cbtn__swap');
         const m = measureSwap(swap);
         if (!m) return; // escondido (menu do celular fechado)
-        rest += btn.getBoundingClientRect().width - swap.getBoundingClientRect().width + m.a;
+        rest.push(btn.getBoundingClientRect().width - swap.getBoundingClientRect().width + m.a);
         grow = Math.max(grow, m.b - m.a);
       }
       const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
-      const need = Math.ceil(rest + gap * (btns.length - 1) + grow + GROW_SLACK);
+      const extra = grow + GROW_SLACK;
+      const one = Math.ceil(rest.reduce((s, w) => s + w, 0) + gap * (btns.length - 1) + extra);
+      const two = Math.ceil(rest[0] + rest[1] + gap + extra); // E-mail + LinkedIn
       const avail = el.parentElement.getBoundingClientRect().width;
-      const stacked = need > avail;
-      el.classList.toggle('is-stacked', stacked);
-      el.style.minWidth = stacked ? '' : `${need}px`;
+      const hover = window.matchMedia('(hover: hover)').matches;
+      const split = one > avail && hover && two <= avail;
+      el.classList.toggle('is-split', split);
+      el.style.minWidth = one <= avail ? `${one}px` : split ? `${two}px` : '';
     };
     fit();
     document.fonts?.ready.then(fit);
