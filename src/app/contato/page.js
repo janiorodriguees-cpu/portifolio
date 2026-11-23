@@ -22,14 +22,11 @@ export default function Contato() {
           </span>
         </h1>
         <p className="contact__lead" data-fade>
-          Tem uma vaga, um projeto ou uma ideia? Me conte um pouco e eu respondo.
+          Disponível para vagas remotas, projetos freelance e consultoria em produto digital.
         </p>
         <div data-fade>
           <ContactButtons />
         </div>
-        <p className="contact__note" data-fade>
-          Prefere não usar formulário? Copie o e-mail acima e me escreva quando quiser.
-        </p>
       </div>
       <div className="contact__form" data-fade>
         <ContactForm />

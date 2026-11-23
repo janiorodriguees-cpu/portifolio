@@ -56,7 +56,7 @@ export default function ContactForm() {
     return (
       <div className="cform cform--sent" role="status">
         <p className="cform__ok">Mensagem enviada.</p>
-        <p>Obrigado pelo contato. Respondo assim que ler.</p>
+        <p>Obrigado pelo contato. Vou responder no e-mail que você informou.</p>
         <button type="button" className="cform__again" onClick={() => setStatus('idle')}>
           Enviar outra mensagem
         </button>
@@ -68,7 +68,7 @@ export default function ContactForm() {
     <form className="cform" onSubmit={onSubmit} noValidate>
       <fieldset className="cform__topics">
         <legend>Sobre o que vamos conversar?</legend>
-        <p className="cform__hint">Escolha quantas quiser</p>
+        <p className="cform__hint">Pode marcar mais de uma.</p>
         <div className="chips">
           {TOPICS.map((t) => (
             <button
@@ -85,18 +85,30 @@ export default function ContactForm() {
       </fieldset>
 
       <label className="field">
-        <span>Nome *</span>
-        <input name="nome" autoComplete="name" aria-invalid={!!errors.nome} />
+        <span>Nome</span>
+        <input name="nome" autoComplete="name" placeholder="Seu nome" aria-invalid={!!errors.nome} />
         {errors.nome && <em className="field__err">{errors.nome}</em>}
       </label>
       <label className="field">
-        <span>E-mail *</span>
-        <input name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={!!errors.email} />
+        <span>E-mail</span>
+        <input
+          name="email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
+          placeholder="voce@empresa.com"
+          aria-invalid={!!errors.email}
+        />
         {errors.email && <em className="field__err">{errors.email}</em>}
       </label>
       <label className="field">
-        <span>Mensagem *</span>
-        <textarea name="mensagem" rows={4} aria-invalid={!!errors.mensagem} />
+        <span>Mensagem</span>
+        <textarea
+          name="mensagem"
+          rows={4}
+          placeholder="Conte sobre a vaga, o projeto ou a ideia."
+          aria-invalid={!!errors.mensagem}
+        />
         {errors.mensagem && <em className="field__err">{errors.mensagem}</em>}
       </label>
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="sr-only" aria-hidden="true" />
@@ -107,7 +119,7 @@ export default function ContactForm() {
         </button>
         {status === 'error' && (
           <p className="cform__err" role="alert">
-            Não deu para enviar agora. Copie meu e-mail ao lado e me escreva por lá.
+            Não foi possível enviar agora. Use o botão E-mail para copiar meu endereço.
           </p>
         )}
       </div>

@@ -1153,6 +1153,11 @@ a:hover > .arrow,
   resize: vertical;
   transition: border-color 0.25s;
 }
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
 .field input:focus,
 .field textarea:focus {
   outline: none;
