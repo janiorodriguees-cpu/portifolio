@@ -8,6 +8,15 @@ Next.js 15 (App Router) com `output: 'export'`, React 19, MDX para cases (`@next
 ## Comandos
 `npm install` · `npm run dev` · `npm run build` (gera `out/`)
 
+## Publicação
+O site está no ar em **janiorodrigues.com** (Vercel). Publicar = commit + `git push` no `main` de `github.com/janiorodriguees-cpu/portifolio`; a Vercel atualiza em 1–2 min. Só publique quando o Janio disser "publicar".
+Domínio e DNS: o Janio contratou um plano na **HostGator** (os servidores de DNS são `dns3/dns4.hostgator.com.br`). O DNS aponta o site para a Vercel (registro A `216.198.79.1` e `www` → CNAME da Vercel), então os arquivos do site são servidos pela Vercel, não pelo servidor da HostGator. O MX aponta para o próprio `janiorodrigues.com` (hoje, IP da Vercel), então um e-mail @janiorodrigues.com não recebe mensagens enquanto isso não for ajustado.
+
+## Como o Janio prefere trabalhar
+- Faça a mudança e diga o que mudou (arquivos e comportamento). **Não abra o localhost nem teste no navegador, nem acompanhe o deploy, a menos que ele peça**: ele confere em `localhost:3000` e no domínio e avisa.
+- Antes de mudar texto ou layout que ele não definiu, mostre a proposta e espere o ok. Opiniões de UX: dê a recomendação e o porquê, pensando em quem visita (recrutador, cliente).
+- Testes de tela fora do portfólio: laboratório em `lab/` (fora do git), servidor `node lab/server.js` na porta 3100 (config `lab` em `.claude/launch.json`); o portfólio fica na 3000.
+
 ## Estrutura
 - `src/app/`: páginas (`page.js` home, `sobre/`, `casos/[slug]/`), `layout.js`, CSS global.
 - `src/components/`: `Shell` (cortina + cursor + navegação), `Reel`, `Series`, `Header`, `TLink`, `Footer`, `CaseEnter`, `mdx/`.
@@ -26,6 +35,11 @@ Next.js 15 (App Router) com `output: 'export'`, React 19, MDX para cases (`@next
 - Transições de página: para cases a cortina sobe (cor do case); para o Sobre ela atravessa na horizontal (`direction` em `curtain.js`, escolhida no `Shell`).
 - Grid de 12 colunas: margem `--gutter` (56 px no 1440), espaço entre colunas `--col-gap` (24 px), espaçamentos `--s1`…`--s8` (8, 16, 24, 32, 48, 64, 96, 128).
 - Não rode `npm run build` com o `npm run dev` aberto: os dois usam `.next` e o dev quebra.
+- Botões de contato (`ContactButtons`: Contato, rodapé e menu do celular): compactos parados ("E-mail", "LinkedIn", "CV") e crescem no hover ("Copiar e-mail", "Abrir perfil ↗", "Visualizar ↗"). E-mail copia o endereço; CV abre o PDF (`public/curriculo.pdf`) em nova aba, sem baixar. O hover nunca pode fazer um botão trocar de linha: a fileira reserva o espaço; sem espaço e com mouse, duas linhas fixas (E-mail + LinkedIn / CV). **Nunca empilhar os três** (o Janio recusou).
+- Página Contato: layout atual (título + texto + botões à esquerda, colunas 1–6; formulário à direita, 7–12), que cabe sem rolagem. O Janio preferiu este a alternativas (nov/2026). Sem frases explicando como usar os botões.
+
+## Redação
+Escreva para quem escaneia (recrutador, cliente): o que importa primeiro, frases curtas, nada que repita o título ou explique o óbvio. Contato revisado em 23/11/2026; as outras páginas ainda não.
 
 ## Confidencialidade (importante)
 Os cases vêm de clientes de consultoria (Cielo, Bradesco, Carrefour, Fleury, Alelo, CTC...). **Não publique nomes, números ou telas de cliente sem o Janio confirmar** o que pode ser exibido. Quando em dúvida, anonimize ou use um placeholder.
@@ -34,8 +48,11 @@ Os cases vêm de clientes de consultoria (Cielo, Bradesco, Carrefour, Fleury, Al
 Contexto e problema · Meu papel e o time · Processo e facilitação · Decisões e o que foi descartado · Solução · Resultado e aprendizados.
 
 ## Pendências
-- Escrever os cases reais (Cielo ARV, Fleury, Bradesco, Alelo, Carrefour, CTC) e a página Sobre.
-- Formulário de contato: criar o formulário no Formspree e colar o endereço em `form` (`site.js`). Não use `mailto:` no site (abre o seletor de apps do Windows); e-mail é copiado pelo botão.
+- Revisar a redação das outras páginas com o mesmo olhar do Contato: Home (reel e rodapé), Sobre e páginas de case.
+- Escrever os cases reais. Recomendação ainda não confirmada pelo Janio: Bradesco Internet Banking, CTC, Cielo (ARV) e um quarto entre Fleury e Carrefour. A Cielo já aparece no reel.
+- Formulário de contato: ligado ao Formspree em 23/11/2026 (`form` em `site.js`, plano grátis, 50 mensagens/mês); falta o Janio confirmar que as mensagens chegam. Não use `mailto:` no site (abre o seletor de apps do Windows); e-mail é copiado pelo botão.
 - Depoimentos reais e autorizados em `src/data/testimonials.js`.
-- Definir domínio (janiorodrigues.com) e hospedagem.
-- Primeira execução: rodar `npm install` e `npm run dev` e corrigir qualquer erro de build.
+
+## Últimas mudanças (nov/2026)
+- 19/11: currículo novo (CV 2026) em `public/curriculo.pdf`; botões de contato compactos com hover; CV abre em nova aba.
+- 23/11: correções dos botões (largura após copiar, troca de linha no hover); Contato com nova redação.

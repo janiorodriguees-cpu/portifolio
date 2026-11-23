@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { site } from '@/data/site';
 
 // Formulário de contato. O site é estático (sem servidor), então a mensagem é
@@ -9,6 +9,7 @@ import { site } from '@/data/site';
 
 const TOPICS = ['Vaga CLT', 'Projeto freelance', 'Consultoria', 'Só conversar'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const SENT_MS = 5000; // tempo da confirmação "Mensagem enviada." antes de voltar ao formulário
 
 export default function ContactForm() {
   const [topics, setTopics] = useState([]);
@@ -41,7 +42,12 @@ export default function ContactForm() {
       const res = await fetch(site.form, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...data, assunto: topics.join(', ') || '—' }),
+        // _subject: assunto do e-mail que chega (o Formspree usa o campo "email" como responder-para)
+        body: JSON.stringify({
+          ...data,
+          assunto: topics.join(', ') || '—',
+          _subject: `Portfólio: ${data.nome.trim()}${topics.length ? ` (${topics.join(', ')})` : ''}`,
+        }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setStatus('sent');
@@ -52,14 +58,18 @@ export default function ContactForm() {
     }
   };
 
+  // depois de enviar, a confirmação fica alguns segundos e o formulário volta sozinho
+  useEffect(() => {
+    if (status !== 'sent') return;
+    const t = setTimeout(() => setStatus('idle'), SENT_MS);
+    return () => clearTimeout(t);
+  }, [status]);
+
   if (status === 'sent') {
     return (
       <div className="cform cform--sent" role="status">
         <p className="cform__ok">Mensagem enviada.</p>
         <p>Obrigado pelo contato. Vou responder no e-mail que você informou.</p>
-        <button type="button" className="cform__again" onClick={() => setStatus('idle')}>
-          Enviar outra mensagem
-        </button>
       </div>
     );
   }

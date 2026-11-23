@@ -8,10 +8,9 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/janio-rodrigues/',
   // para atualizar, substitua o arquivo public/curriculo.pdf
   cv: '/curriculo.pdf',
-  // TROCAR: endereço do formulário de contato. Crie um formulário grátis em formspree.io
-  // (entre com o e-mail que vai receber as mensagens) e cole aqui o endereço que ele dá,
-  // algo como 'https://formspree.io/f/abcdwxyz'. Vazio: o formulário avisa para copiar o e-mail.
-  form: '',
+  // endereço do formulário de contato no Formspree (conta do Janio; as mensagens chegam
+  // no e-mail dele). Vazio: o formulário mostra erro e pede para copiar o e-mail.
+  form: 'https://formspree.io/f/xdegpzgw',
   // retrato da página Sobre
   photo: '/foto.jpg',
   // rosto recortado para o botão de e-mail (quadrado, aparece bem pequeno)
