@@ -4,6 +4,7 @@ import CaseEnter from '@/components/CaseEnter';
 import NextCases from '@/components/NextCases';
 import CaseName from '@/components/CaseName';
 import Footer from '@/components/Footer';
+import { underConstruction } from '@/data/site';
 
 export const dynamicParams = false;
 
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CasePage({ params }) {
+  if (underConstruction()) return null; // site em obra: não gera conteúdo (ver site.js)
   const { slug } = await params;
   const c = getCase(slug);
   if (!c) notFound();

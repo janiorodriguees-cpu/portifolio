@@ -1,12 +1,14 @@
 import ContactButtons from '@/components/ContactButtons';
 import ContactForm from '@/components/ContactForm';
 import ContactEnter from '@/components/ContactEnter';
+import { underConstruction } from '@/data/site';
 
 export const metadata = { title: 'Contato' };
 
 // Página de contato: convite + botões (e-mail que copia, LinkedIn) à esquerda,
 // formulário à direita (grid de 12 colunas: 1–5 e 7–12).
 export default function Contato() {
+  if (underConstruction()) return null; // site em obra: não gera conteúdo (ver site.js)
   return (
     <section className="contact" aria-labelledby="contato-titulo">
       <ContactEnter />

@@ -4,7 +4,8 @@ import '@fontsource-variable/inter/wght.css';
 import './fonts.css';
 import './globals.css';
 import Shell from '@/components/Shell';
-import { site } from '@/data/site';
+import UnderConstruction from '@/components/UnderConstruction';
+import { site, underConstruction } from '@/data/site';
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -22,6 +23,17 @@ export const viewport = { themeColor: '#ebebe9' };
 const jsFlag = `(function(d){var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];if(n&&n.type==='reload'){if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.pathname!=='/'||location.hash){location.replace('/');return}window.__reloadTop=true;addEventListener('load',function(){scrollTo(0,0)})}d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){if(d.classList.contains('is-loading')&&!d.classList.contains('is-ready')&&!window.__shell){d.classList.remove('is-loading');d.classList.add('is-ready')}},6000)})(document.documentElement)`;
 
 export default function RootLayout({ children }) {
+  // Site em obra: no build de produção (janiorodrigues.com) mostra só a página "em construção";
+  // no `npm run dev` (localhost) o site completo continua. Liga/desliga em `construction` (site.js).
+  if (underConstruction()) {
+    return (
+      <html lang="pt-BR">
+        <body style={{ margin: 0 }}>
+          <UnderConstruction />
+        </body>
+      </html>
+    );
+  }
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>

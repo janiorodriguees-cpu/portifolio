@@ -1,11 +1,13 @@
 import Section from '@/components/mdx/Section';
 import Footer from '@/components/Footer';
 import Intro from '@/components/Intro';
+import { underConstruction } from '@/data/site';
 import Testimonials from '@/components/Testimonials';
 
 export const metadata = { title: 'Sobre' };
 
 export default function Sobre() {
+  if (underConstruction()) return null; // site em obra: não gera conteúdo (ver site.js)
   return (
     <>
       <Intro />
